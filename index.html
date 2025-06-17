@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatTax.space - Pay your cat tax!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Broadway', cursive, sans-serif;
+            background: linear-gradient(135deg, #fff8e1 0%, #f1f8e9 100%);
+            min-height: 100vh;
+            color: #2e7d32;
+        }
+
+        /* Header/Navigation */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(255, 193, 7, 0.2);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #ffeb3b;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #ffeb3b, #4caf50);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .site-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2e7d32;
+            text-decoration: none;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #ffeb3b;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .search-box:focus {
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .search-box::placeholder {
+            color: #81c784;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: #2e7d32;
+            border: 2px solid #4caf50;
+        }
+
+        .btn-login:hover {
+            background: #4caf50;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-register {
+            background: linear-gradient(45deg, #ffeb3b, #ffc107);
+            color: #2e7d32;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ffeb3b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 100px);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(255, 193, 7, 0.3);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #4caf50;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cat-emoji {
+            font-size: 4rem;
+            margin: 2rem 0;
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            color: white;
+            font-size: 1.3rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        /* Registration Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            background: linear-gradient(45deg, #ffeb3b, #4caf50);
+            color: #2e7d32;
+            padding: 1.5rem;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            color: #2e7d32;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .close:hover {
+            transform: scale(1.2);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 2px solid #ffeb3b;
+            border-radius: 15px;
+            background: rgba(255, 235, 59, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e8f5e8;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .cat-profile {
+            border-left: 4px solid #ffeb3b;
+            margin-bottom: 1rem;
+        }
+
+        .add-cat-btn {
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .add-cat-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .remove-cat-btn {
+            background: #ff5722;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            float: right;
+            margin-top: -3rem;
+            margin-right: 1rem;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #ffeb3b, #ffc107);
+            color: #2e7d32;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+        }
+
+        .login-btn {
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: #4caf50;
+        }
+
+        .checkbox-label {
+            color: #2e7d32;
+            font-size: 0.9rem;
+        }
+
+        .login-modal .modal-content {
+            max-width: 400px;
+        }
+
+        .post-modal .modal-content {
+            max-width: 700px;
+        }
+
+        .upload-area {
+            border: 3px dashed #ffeb3b;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(255, 235, 59, 0.1);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .upload-area.dragover {
+            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.2);
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ffeb3b;
+        }
+
+        .upload-text {
+            color: #2e7d32;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-subtext {
+            color: #81c784;
+            font-size: 0.9rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e8f5e8;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'Broadway', cursive, sans-serif;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border: 2px solid #e8f5e8;
+            border-radius: 10px;
+            background: white;
+            min-height: 45px;
+        }
+
+        .tag {
+            background: linear-gradient(45deg, #ffeb3b, #ffc107);
+            color: #2e7d32;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .tag-remove {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .tag-remove:hover {
+            color: #ff5722;
+        }
+
+        .tag-input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 1rem;
+            flex: 1;
+            min-width: 100px;
+            font-family: 'Broadway', cursive, sans-serif;
+        }
+
+        .suggested-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .suggested-tag {
+            background: rgba(76, 175, 80, 0.1);
+            color: #2e7d32;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .suggested-tag:hover {
+            background: #4caf50;
+            color: white;
+        }
+
+        .post-btn {
+            background: linear-gradient(45deg, #ffeb3b, #ffc107);
+            color: #2e7d32;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .post-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Story Section */
+        .story-section {
+            background: linear-gradient(135deg, rgba(255, 235, 59, 0.2) 0%, rgba(76, 175, 80, 0.2) 100%);
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            border-top: 2px solid rgba(255, 235, 59, 0.5);
+        }
+
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .story-title {
+            font-size: 2rem;
+            color: #2e7d32;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(255, 193, 7, 0.3);
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .story-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #ffeb3b;
+            transition: all 0.3s ease;
+        }
+
+        .story-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .story-item:nth-child(2) {
+            border-left-color: #4caf50;
+        }
+
+        .story-text {
+            font-size: 1.3rem;
+            color: #2e7d32;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .story-emoji {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .story-quote {
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .story-quote::before {
+            content: '"';
+            font-size: 4rem;
+            color: #ffeb3b;
+            position: absolute;
+            left: -10px;
+            top: -20px;
+            opacity: 0.7;
+        }
+
+        .story-quote::after {
+            content: '"';
+            font-size: 4rem;
+            color: #ffeb3b;
+            position: absolute;
+            right: -10px;
+            bottom: -40px;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design for Story Section */
+        @media (max-width: 768px) {
+            .story-section {
+                padding: 2rem 1rem;
+            }
+
+            .story-title {
+                font-size: 1.5rem;
+            }
+
+            .story-text {
+                font-size: 1.1rem;
+            }
+
+            .story-quote {
+                padding: 0 1rem;
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(255, 235, 59, 0.1) 100%);
+            padding: 3rem 2rem;
+            border-top: 2px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .feedback-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .feedback-title {
+            font-size: 2rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(76, 175, 80, 0.3);
+        }
+
+        .feedback-subtitle {
+            font-size: 1.1rem;
+            color: #4caf50;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .feedback-form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .feedback-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .feedback-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .feedback-input, .feedback-textarea, .feedback-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e8f5e8;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+            font-family: 'Broadway', cursive, sans-serif;
+        }
+
+        .feedback-input:focus, .feedback-textarea:focus, .feedback-select:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .feedback-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .feedback-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .feedback-submit {
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            font-family: 'Broadway', cursive, sans-serif;
+        }
+
+        .feedback-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .feedback-login-prompt {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 235, 59, 0.3);
+            text-align: center;
+        }
+
+        .feedback-prompt-text {
+            font-size: 1.2rem;
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+        }
+
+        .feedback-login-btn {
+            background: linear-gradient(45deg, #ffeb3b, #ffc107);
+            color: #2e7d32;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            font-family: 'Broadway', cursive, sans-serif;
+            margin-right: 1rem;
+        }
+
+        .feedback-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+        }
+
+        .feedback-emoji {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Responsive Design for Feedback Section */
+        @media (max-width: 768px) {
+            .feedback-section {
+                padding: 2rem 1rem;
+            }
+
+            .feedback-title {
+                font-size: 1.5rem;
+            }
+
+            .feedback-form {
+                padding: 1.5rem;
+            }
+
+            .feedback-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .search-container {
+                order: 3;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+        }
+
+        /* Decorative elements */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ffeb3b;
+            font-size: 1.5rem;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .heart:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .heart:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .heart:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .heart:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .heart:nth-child(7) { left: 70%; animation-delay: 0.5s; }
+        .heart:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .heart:nth-child(9) { left: 90%; animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating decorative elements -->
+    <div class="floating-hearts">
+        <div class="heart">🐾</div>
+        <div class="heart">💛</div>
+        <div class="heart">🐾</div>
+        <div class="heart">💚</div>
+        <div class="heart">🐾</div>
+        <div class="heart">😸</div>
+        <div class="heart">🐾</div>
+        <div class="heart">😺</div>
+        <div class="heart">🐾</div>
+        <div class="heart">💛</div>
+        <div class="heart">😻</div>
+    </div>
+
+    <!-- Header/Navigation -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo-section">
+                <div class="logo">🐱</div>
+                <a href="/" class="site-name">CatTax</a>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search for cats, posts, users...">
+            </div>
+            
+            <div class="user-section">
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-login" onclick="openLoginModal()">Login</a>
+                    <a href="#" class="btn btn-register" onclick="openRegisterModal()">Join Us</a>
+                </div>
+                
+                <!-- User avatar (shown when logged in) -->
+                <img src="https://via.placeholder.com/40x40/4caf50/ffffff?text=U" alt="User Avatar" class="user-avatar" id="userAvatar">
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="hero-section">
+            <h1 class="hero-title">Pay your cat tax and join our community</h1>
+            <p class="hero-subtitle">Share your adorable cats, connect with fellow cat lovers, and spread the joy! 🐾</p>
+            
+            <div class="cat-emoji">🐱💕</div>
+            
+            <button class="cta-button" onclick="handleGetStarted()">Get Started</button>
+        </div>
+    </main>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="story-container">
+            <h2 class="story-title">💝 Our Story 💝</h2>
+            <div class="story-content">
+                <div class="story-item">
+                    <div class="story-emoji">🏠💕</div>
+                    <div class="story-quote">
+                        <p class="story-text">
+                            Cats are my family. Whether I chose my cat, or my cat chose me, I will love them forever.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="story-item">
+                    <div class="story-emoji">🌍✨</div>
+                    <div class="story-quote">
+                        <p class="story-text">
+                            Every little cat in the world deserves to be treated with gentleness and love.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section class="feedback-section">
+        <div class="feedback-container">
+            <h2 class="feedback-title">💬 Share Your Thoughts</h2>
+            <p class="feedback-subtitle">Help us make CatTax even better for our feline friends and their humans! 🐾</p>
+            
+            <!-- Login Required Prompt -->
+            <div class="feedback-login-prompt" id="feedbackLoginPrompt">
+                <div class="feedback-emoji" style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+                <p class="feedback-prompt-text">
+                    Please login or join our community to share your feedback! 🐱
+                </p>
+                <button class="feedback-login-btn" onclick="openLoginModal()">
+                    🔑 Login
+                </button>
+                <button class="feedback-login-btn" onclick="openRegisterModal()">
+                    🎉 Join Us
+                </button>
+            </div>
+            
+            <!-- Feedback Form (Hidden by default) -->
+            <form class="feedback-form" id="feedbackForm" style="display: none;">
+                <div class="feedback-group">
+                    <label class="feedback-label">
+                        <span class="feedback-emoji">📝</span>Feedback Type
+                    </label>
+                    <select class="feedback-select" name="feedbackType" required>
+                        <option value="">Select feedback type</option>
+                        <option value="suggestion">💡 Suggestion</option>
+                        <option value="bug">🐛 Bug Report</option>
+                        <option value="feature">✨ Feature Request</option>
+                        <option value="compliment">❤️ Compliment</option>
+                        <option value="complaint">😔 Complaint</option>
+                        <option value="other">🤔 Other</option>
+                    </select>
+                </div>
+                
+                <div class="feedback-group">
+                    <label class="feedback-label">
+                        <span class="feedback-emoji">💭</span>Your Message
+                    </label>
+                    <textarea class="feedback-textarea" name="feedbackMessage" placeholder="Tell us what you think! We'd love to hear about your experience, suggestions for improvement, or any ideas you have to make our cat community even more amazing..." required maxlength="1000"></textarea>
+                </div>
+                
+                <button type="submit" class="feedback-submit">
+                    🚀 Send Feedback
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Registration Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🐱 Join CatTax Community! 🐾</h2>
+                <span class="close" onclick="closeRegisterModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="registrationForm">
+                    <!-- Pet Profiles Section -->
+                    <div class="section">
+                        <h3 class="section-title">🐱 Pet Profiles</h3>
+                        <div id="catProfiles">
+                            <div class="cat-profile">
+                                <h4 style="color: #4caf50; margin-bottom: 1rem;">Cat #1</h4>
+                                <div class="form-group">
+                                    <label class="form-label">Cat's Name</label>
+                                    <input type="text" class="form-input" name="catName[]" placeholder="Enter your cat's name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Cat's Birthday</label>
+                                    <input type="date" class="form-input" name="catBirthday[]" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Cat's Breed</label>
+                                    <select class="form-select" name="catBreed[]" required>
+                                        <option value="">Select a breed</option>
+                                        <option value="persian">Persian</option>
+                                        <option value="siamese">Siamese</option>
+                                        <option value="maine-coon">Maine Coon</option>
+                                        <option value="british-shorthair">British Shorthair</option>
+                                        <option value="ragdoll">Ragdoll</option>
+                                        <option value="bengal">Bengal</option>
+                                        <option value="abyssinian">Abyssinian</option>
+                                        <option value="russian-blue">Russian Blue</option>
+                                        <option value="scottish-fold">Scottish Fold</option>
+                                        <option value="mixed">Mixed Breed</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Cat's Gender</label>
+                                    <select class="form-select" name="catGender[]" required>
+                                        <option value="">Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Spayed/Neutered</label>
+                                    <select class="form-select" name="catNeutered[]" required>
+                                        <option value="">Select status</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="add-cat-btn" onclick="addCatProfile()">
+                            ➕ Add Another Cat's Information
+                        </button>
+                    </div>
+
+                    <!-- Owner Profile Section -->
+                    <div class="section">
+                        <h3 class="section-title">👤 Owner Profile</h3>
+                        <div class="form-group">
+                            <label class="form-label">Profile Avatar</label>
+                            <div class="upload-area" onclick="document.getElementById('avatarInput').click()" style="padding: 1rem; margin-bottom: 1rem;">
+                                <div class="upload-icon" style="font-size: 2rem;">👤</div>
+                                <div class="upload-text" style="font-size: 1rem;">Upload your profile photo</div>
+                                <div class="upload-subtext">JPG, PNG (Max 5MB)</div>
+                            </div>
+                            <input type="file" id="avatarInput" class="file-input" name="avatar" accept="image/*">
+                            <img id="avatarPreview" class="image-preview" alt="Avatar Preview" style="max-height: 150px; border-radius: 50%; width: 150px; height: 150px; object-fit: cover;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" class="form-input" name="ownerName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Adoption Date</label>
+                            <input type="date" class="form-input" name="adoptionDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Occupation</label>
+                            <input type="text" class="form-input" name="occupation" placeholder="What do you do for work?" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" name="email" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-input" name="password" placeholder="Create a secure password" required minlength="6">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        🎉 Join CatTax Community!
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div id="postModal" class="modal post-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">📸 Share Your Cat Tax! 🐾</h2>
+                <span class="close" onclick="closePostModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="postForm">
+                    <!-- Photo Upload Section -->
+                    <div class="form-group">
+                        <label class="form-label">Upload Photo</label>
+                        <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+                            <div class="upload-icon">📷</div>
+                            <div class="upload-text">Click to upload or drag & drop</div>
+                            <div class="upload-subtext">Support JPG, PNG, GIF (Max 10MB)</div>
+                        </div>
+                        <input type="file" id="photoInput" class="file-input" name="photo" accept="image/*" required>
+                        <img id="imagePreview" class="image-preview" alt="Preview">
+                    </div>
+
+                    <!-- Title and Description -->
+                    <div class="form-group">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-input" name="title" placeholder="Give your post a catchy title!" required maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-textarea" name="description" placeholder="Tell us about your adorable cat! Share their story, personality, or just what makes them special..." maxlength="500"></textarea>
+                    </div>
+
+                    <!-- Tags Section -->
+                    <div class="form-group">
+                        <label class="form-label">Tags</label>
+                        <div class="tags-container" id="tagsContainer">
+                            <input type="text" class="tag-input" id="tagInput" placeholder="Add tags (press Enter)">
+                        </div>
+                        <div class="suggested-tags">
+                            <span class="suggested-tag" onclick="addSuggestedTag('cute')">cute</span>
+                            <span class="suggested-tag" onclick="addSuggestedTag('fluffy')">fluffy</span>
+                            <span class="suggested-tag" onclick="addSuggestedTag('playful')">playful</span>
+                            <span class="suggested-tag" onclick="addSuggestedTag('sleepy')">sleepy</span>
+                            <span class="suggested-tag" onclick="addSuggestedTag('kitten')">kitten</span>
+                            <span class="suggested-tag" onclick="addSuggestedTag('orange')">orange</span>
+                            <span class="suggested-tag" onclick="addSuggestedTag('black')">black</span>
+                            <span class="suggested-tag" onclick="addSuggestedTag('white')">white</span>
+                            <span class="suggested-tag" onclick="addSuggestedTag('tabby')">tabby</span>
+                            <span class="suggested-tag" onclick="addSuggestedTag('rescue')">rescue</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="post-btn">
+                        🎉 Share My Cat Tax!
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🐱 Welcome Back! 🐾</h2>
+                <span class="close" onclick="closeLoginModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" name="loginEmail" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" name="loginPassword" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="rememberMe" name="rememberMe" class="checkbox">
+                        <label for="rememberMe" class="checkbox-label">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        🎉 Login to CatTax!
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let catCount = 1;
+        let selectedTags = [];
+        let isLoggedIn = false;
+
+        // Post Modal Functions
+        function openPostModal() {
+            document.getElementById('postModal').style.display = 'block';
+        }
+
+        function closePostModal() {
+            document.getElementById('postModal').style.display = 'none';
+            // Reset form
+            document.getElementById('postForm').reset();
+            document.getElementById('imagePreview').style.display = 'none';
+            selectedTags = [];
+            renderTags();
+        }
+
+        // Login Modal Functions
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        // Registration Modal Functions
+        function openRegisterModal() {
+            document.getElementById('registerModal').style.display = 'block';
+        }
+
+        function closeRegisterModal() {
+            document.getElementById('registerModal').style.display = 'none';
+        }
+
+        // Add another cat profile
+        function addCatProfile() {
+            catCount++;
+            const catProfiles = document.getElementById('catProfiles');
+            const newCatProfile = document.createElement('div');
+            newCatProfile.className = 'cat-profile';
+            newCatProfile.innerHTML = `
+                <button type="button" class="remove-cat-btn" onclick="removeCatProfile(this)">Remove</button>
+                <h4 style="color: #4caf50; margin-bottom: 1rem;">Cat #${catCount}</h4>
+                <div class="form-group">
+                    <label class="form-label">Cat's Name</label>
+                    <input type="text" class="form-input" name="catName[]" placeholder="Enter your cat's name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Cat's Birthday</label>
+                    <input type="date" class="form-input" name="catBirthday[]" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Cat's Breed</label>
+                    <select class="form-select" name="catBreed[]" required>
+                        <option value="">Select a breed</option>
+                        <option value="persian">Persian</option>
+                        <option value="siamese">Siamese</option>
+                        <option value="maine-coon">Maine Coon</option>
+                        <option value="british-shorthair">British Shorthair</option>
+                        <option value="ragdoll">Ragdoll</option>
+                        <option value="bengal">Bengal</option>
+                        <option value="abyssinian">Abyssinian</option>
+                        <option value="russian-blue">Russian Blue</option>
+                        <option value="scottish-fold">Scottish Fold</option>
+                        <option value="mixed">Mixed Breed</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Cat's Gender</label>
+                    <select class="form-select" name="catGender[]" required>
+                        <option value="">Select gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Spayed/Neutered</label>
+                    <select class="form-select" name="catNeutered[]" required>
+                        <option value="">Select status</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+            `;
+            catProfiles.appendChild(newCatProfile);
+        }
+
+        // Remove cat profile
+        function removeCatProfile(button) {
+            button.parentElement.remove();
+        }
+
+        // Handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const registrationData = {
+                cats: [],
+                owner: {}
+            };
+
+            // Collect cat data
+            const catNames = formData.getAll('catName[]');
+            const catBirthdays = formData.getAll('catBirthday[]');
+            const catBreeds = formData.getAll('catBreed[]');
+            const catGenders = formData.getAll('catGender[]');
+            const catNeutered = formData.getAll('catNeutered[]');
+
+            for (let i = 0; i < catNames.length; i++) {
+                registrationData.cats.push({
+                    name: catNames[i],
+                    birthday: catBirthdays[i],
+                    breed: catBreeds[i],
+                    gender: catGenders[i],
+                    neutered: catNeutered[i]
+                });
+            }
+
+            // Collect owner data
+            registrationData.owner = {
+                name: formData.get('ownerName'),
+                adoptionDate: formData.get('adoptionDate'),
+                occupation: formData.get('occupation'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                avatar: formData.get('avatar')
+            };
+
+            // For demo purposes, show the collected data
+            console.log('Registration Data:', registrationData);
+            alert(`Welcome to CatTax, ${registrationData.owner.name}! 🎉\n\nYou've registered ${registrationData.cats.length} cat(s):\n${registrationData.cats.map(cat => `• ${cat.name} (${cat.breed})`).join('\n')}`);
+            
+            // Auto login after registration
+            isLoggedIn = true;
+            
+            // Update user avatar if uploaded
+            const avatarFile = formData.get('avatar');
+            if (avatarFile && avatarFile.size > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('userAvatar').src = e.target.result;
+                };
+                reader.readAsDataURL(avatarFile);
+            }
+            
+            toggleUserState();
+            closeRegisterModal();
+        });
+
+        // Handle login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const loginData = {
+                email: formData.get('loginEmail'),
+                password: formData.get('loginPassword'),
+                rememberMe: formData.get('rememberMe') === 'on'
+            };
+
+            // For demo purposes, show the collected data
+            console.log('Login Data:', loginData);
+            
+            // Simulate successful login
+            if (loginData.email && loginData.password) {
+                alert(`Welcome back! 🎉\n\nLogged in as: ${loginData.email}\nRemember me: ${loginData.rememberMe ? 'Yes' : 'No'}`);
+                
+                // Switch to logged-in state
+                isLoggedIn = true;
+                toggleUserState();
+                closeLoginModal();
+            }
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const postModal = document.getElementById('postModal');
+            
+            if (event.target == loginModal) {
+                closeLoginModal();
+            }
+            if (event.target == registerModal) {
+                closeRegisterModal();
+            }
+            if (event.target == postModal) {
+                closePostModal();
+            }
+        }
+
+        // Photo upload functionality
+        document.getElementById('photoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Drag and drop functionality
+        const uploadArea = document.querySelector('.upload-area');
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].type.startsWith('image/')) {
+                document.getElementById('photoInput').files = files;
+                document.getElementById('photoInput').dispatchEvent(new Event('change'));
+            }
+        });
+
+        // Tags functionality
+        function renderTags() {
+            const container = document.getElementById('tagsContainer');
+            const tagInput = document.getElementById('tagInput');
+            
+            container.innerHTML = '';
+            
+            // Render existing tags
+            selectedTags.forEach((tag, index) => {
+                const tagElement = document.createElement('span');
+                tagElement.className = 'tag';
+                tagElement.innerHTML = `${tag} <span class="tag-remove" onclick="removeTag(${index})">×</span>`;
+                container.appendChild(tagElement);
+            });
+            
+            // Add input back
+            container.appendChild(tagInput);
+        }
+
+        function addTag(tagText) {
+            const tag = tagText.trim().toLowerCase();
+            if (tag && !selectedTags.includes(tag) && selectedTags.length < 10) {
+                selectedTags.push(tag);
+                renderTags();
+                document.getElementById('tagInput').value = '';
+            }
+        }
+
+        function removeTag(index) {
+            selectedTags.splice(index, 1);
+            renderTags();
+        }
+
+        function addSuggestedTag(tag) {
+            addTag(tag);
+        }
+
+        // Tag input event listener
+        document.getElementById('tagInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addTag(this.value);
+            }
+        });
+
+        // Handle post form submission
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const postData = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                tags: selectedTags,
+                photo: formData.get('photo')
+            };
+
+            // For demo purposes, show the collected data
+            console.log('Post Data:', postData);
+            alert(`Cat tax shared successfully! 🎉\n\nTitle: ${postData.title}\nDescription: ${postData.description.substring(0, 50)}${postData.description.length > 50 ? '...' : ''}\nTags: ${postData.tags.join(', ')}\nPhoto: ${postData.photo ? postData.photo.name : 'No photo'}`);
+            
+            closePostModal();
+        });
+
+        // Avatar upload functionality for registration
+        document.getElementById('avatarInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('avatarPreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    
+                    // Update the user avatar in navigation when logged in
+                    if (isLoggedIn) {
+                        document.getElementById('userAvatar').src = e.target.result;
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Simple JavaScript for interaction
+        function handleGetStarted() {
+            if (isLoggedIn) {
+                openPostModal();
+            } else {
+                alert('Please login or register first to share your cat tax! 🐱');
+                openLoginModal();
+            }
+        }
+
+        // Toggle between login/register and user avatar
+        function toggleUserState() {
+            const authButtons = document.querySelector('.auth-buttons');
+            const userAvatar = document.getElementById('userAvatar');
+            const feedbackPrompt = document.getElementById('feedbackLoginPrompt');
+            const feedbackForm = document.getElementById('feedbackForm');
+            
+            if (authButtons.style.display === 'none') {
+                authButtons.style.display = 'flex';
+                userAvatar.style.display = 'none';
+                feedbackPrompt.style.display = 'block';
+                feedbackForm.style.display = 'none';
+                isLoggedIn = false;
+            } else {
+                authButtons.style.display = 'none';
+                userAvatar.style.display = 'block';
+                feedbackPrompt.style.display = 'none';
+                feedbackForm.style.display = 'block';
+                isLoggedIn = true;
+            }
+        }
+
+        // Search functionality
+        document.querySelector('.search-box').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = e.target.value;
+                if (searchTerm.trim()) {
+                    alert(`Searching for: ${searchTerm} 🔍`);
+                }
+            }
+        });
+
+        // Click to toggle user state for demo
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'u' || e.key === 'U') {
+                toggleUserState();
+            }
+        });
+    </script>
+</body>
+</html>
