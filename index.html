@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1640,10 +1641,59 @@
         let currentUser = null;
         let userCats = [];
 
+        // Local Storage Functions (数据持久化)
+        function saveUserData() {
+            if (currentUser) {
+                const userData = {
+                    user: currentUser,
+                    cats: userCats,
+                    isLoggedIn: isLoggedIn,
+                    loginTime: new Date().toISOString()
+                };
+                // 模拟localStorage (在实际项目中应使用localStorage)
+                window.cattaxUserData = userData;
+            }
+        }
+
+        function loadUserData() {
+            // 模拟从localStorage读取 (在实际项目中应使用localStorage)
+            const userData = window.cattaxUserData;
+            if (userData) {
+                currentUser = userData.user;
+                userCats = userData.cats || [];
+                isLoggedIn = userData.isLoggedIn || false;
+                
+                if (isLoggedIn) {
+                    // 恢复登录状态
+                    toggleUserState();
+                    
+                    // 恢复用户头像
+                    if (currentUser.avatar) {
+                        document.getElementById('userAvatar').src = currentUser.avatar;
+                    }
+                }
+                
+                return true;
+            }
+            return false;
+        }
+
+        function clearUserData() {
+            window.cattaxUserData = null;
+            currentUser = null;
+            userCats = [];
+            isLoggedIn = false;
+        }
+
+        // 页面加载时尝试恢复用户数据
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+        });
+
         // User Center Functions
         function openUserCenter() {
             document.getElementById('userCenterModal').style.display = 'block';
-            loadUserData();
+            loadUserCenterData();
         }
 
         function closeUserCenter() {
@@ -1665,6 +1715,29 @@
         }
 
         function loadUserData() {
+            if (currentUser) {
+                // Load profile data
+                document.getElementById('profileName').value = currentUser.name || '';
+                document.getElementById('profileEmail').value = currentUser.email || '';
+                document.getElementById('profileOccupation').value = currentUser.occupation || '';
+                document.getElementById('profileAdoptionDate').value = currentUser.adoptionDate || '';
+
+                // Load avatar
+                if (currentUser.avatar) {
+                    document.getElementById('currentAvatarImg').src = currentUser.avatar;
+                    document.getElementById('currentAvatarImg').style.display = 'block';
+                    document.getElementById('avatarPlaceholder').style.display = 'none';
+                }
+
+                // Load cats data
+                loadCatsData();
+
+                // Load stats
+                loadStatsData();
+            }
+        }
+
+        function loadUserCenterData() {
             if (currentUser) {
                 // Load profile data
                 document.getElementById('profileName').value = currentUser.name || '';
@@ -1741,8 +1814,7 @@
 
         function handleLogout() {
             isLoggedIn = false;
-            currentUser = null;
-            userCats = [];
+            clearUserData(); // 清除保存的数据
             toggleUserState();
             closeUserCenter();
             alert('You have been logged out successfully! 👋');
@@ -1767,6 +1839,7 @@
                     // Save to user data
                     if (currentUser) {
                         currentUser.avatar = avatarUrl;
+                        saveUserData(); // 保存到本地存储
                     }
                 };
                 reader.readAsDataURL(file);
@@ -1782,6 +1855,7 @@
                 currentUser.occupation = document.getElementById('profileOccupation').value;
                 currentUser.adoptionDate = document.getElementById('profileAdoptionDate').value;
                 
+                saveUserData(); // 保存到本地存储
                 alert('Profile updated successfully! 💾');
             }
         });
@@ -1929,6 +2003,9 @@
             
             userCats = registrationData.cats;
 
+            // 保存用户数据到本地存储
+            saveUserData();
+
             // Auto login after registration
             isLoggedIn = true;
             
@@ -1988,6 +2065,7 @@
                 
                 // Switch to logged-in state
                 isLoggedIn = true;
+                saveUserData(); // 保存登录状态
                 toggleUserState();
                 closeLoginModal();
             }
