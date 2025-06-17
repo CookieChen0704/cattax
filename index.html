@@ -830,6 +830,240 @@
             box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
         }
 
+        /* User Center Styles */
+        .user-center-modal .modal-content {
+            max-width: 800px;
+        }
+
+        .user-center-nav {
+            display: flex;
+            border-bottom: 2px solid #e8f5e8;
+            margin-bottom: 2rem;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: #4caf50;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-family: 'Broadway', cursive, sans-serif;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(45deg, #ffeb3b, #ffc107);
+            color: #2e7d32;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .nav-tab:hover {
+            background: rgba(255, 235, 59, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .profile-avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 235, 59, 0.1);
+            border-radius: 15px;
+            border: 2px solid #ffeb3b;
+        }
+
+        .current-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #ffeb3b;
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px dashed #ffeb3b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 235, 59, 0.2);
+            font-size: 3rem;
+            color: #4caf50;
+        }
+
+        .avatar-info {
+            flex: 1;
+        }
+
+        .avatar-info h3 {
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+        }
+
+        .avatar-info p {
+            color: #4caf50;
+            margin-bottom: 1rem;
+        }
+
+        .upload-avatar-btn {
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Broadway', cursive, sans-serif;
+        }
+
+        .upload-avatar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4caf50;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #2e7d32;
+            font-size: 1rem;
+        }
+
+        .cat-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid #ffeb3b;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .cat-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cat-name {
+            font-size: 1.3rem;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .cat-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .cat-detail {
+            color: #4caf50;
+            font-size: 0.9rem;
+        }
+
+        .edit-cat-btn {
+            background: transparent;
+            border: 2px solid #4caf50;
+            color: #4caf50;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .edit-cat-btn:hover {
+            background: #4caf50;
+            color: white;
+        }
+
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            z-index: 1001;
+            border: 2px solid #ffeb3b;
+            overflow: hidden;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            color: #2e7d32;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(255, 235, 59, 0.2);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e8f5e8;
+            margin: 0;
+        }
+
         .feedback-emoji {
             font-size: 1.5rem;
             margin-right: 0.5rem;
@@ -966,7 +1200,21 @@
                 </div>
                 
                 <!-- User avatar (shown when logged in) -->
-                <img src="https://via.placeholder.com/40x40/4caf50/ffffff?text=U" alt="User Avatar" class="user-avatar" id="userAvatar">
+                <div class="user-dropdown">
+                    <img src="https://via.placeholder.com/40x40/4caf50/ffffff?text=U" alt="User Avatar" class="user-avatar" id="userAvatar" onclick="toggleUserDropdown()">
+                    <div class="dropdown-content" id="userDropdown">
+                        <div class="dropdown-item" onclick="openUserCenter()">
+                            👤 User Center
+                        </div>
+                        <div class="dropdown-item" onclick="openPostModal()">
+                            📸 Share Cat Tax
+                        </div>
+                        <hr class="dropdown-divider">
+                        <div class="dropdown-item" onclick="handleLogout()">
+                            🚪 Logout
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
@@ -986,7 +1234,7 @@
     <!-- Story Section -->
     <section class="story-section">
         <div class="story-container">
-            <h2 class="story-title">💝 Our Story 💝</h2>
+            <h2 class="story-title">💝 Our Beliefs 💝</h2>
             <div class="story-content">
                 <div class="story-item">
                     <div class="story-emoji">🏠💕</div>
@@ -1166,6 +1414,134 @@
         </div>
     </div>
 
+    <!-- User Center Modal -->
+    <div id="userCenterModal" class="modal user-center-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">👤 User Center 🐾</h2>
+                <span class="close" onclick="closeUserCenter()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Navigation Tabs -->
+                <div class="user-center-nav">
+                    <button class="nav-tab active" onclick="switchTab('profile')">👤 Profile</button>
+                    <button class="nav-tab" onclick="switchTab('cats')">🐱 My Cats</button>
+                    <button class="nav-tab" onclick="switchTab('posts')">📸 My Posts</button>
+                    <button class="nav-tab" onclick="switchTab('stats')">📊 Statistics</button>
+                </div>
+
+                <!-- Profile Tab -->
+                <div id="profileTab" class="tab-content active">
+                    <!-- Avatar Section -->
+                    <div class="profile-avatar-section">
+                        <div id="currentAvatarContainer">
+                            <div class="avatar-placeholder" id="avatarPlaceholder">👤</div>
+                            <img id="currentAvatarImg" class="current-avatar" style="display: none;" alt="Current Avatar">
+                        </div>
+                        <div class="avatar-info">
+                            <h3>Profile Photo</h3>
+                            <p>Upload a photo to personalize your profile and make it easier for other cat lovers to recognize you!</p>
+                            <button class="upload-avatar-btn" onclick="document.getElementById('newAvatarInput').click()">
+                                📷 Upload New Avatar
+                            </button>
+                            <input type="file" id="newAvatarInput" class="file-input" accept="image/*">
+                        </div>
+                    </div>
+
+                    <!-- Profile Information -->
+                    <form id="profileUpdateForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Your Name</label>
+                                <input type="text" class="form-input" id="profileName" name="profileName" placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" id="profileEmail" name="profileEmail" placeholder="your.email@example.com" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Occupation</label>
+                                <input type="text" class="form-input" id="profileOccupation" name="profileOccupation" placeholder="What do you do?">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Cat Owner Since</label>
+                                <input type="date" class="form-input" id="profileAdoptionDate" name="profileAdoptionDate">
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            💾 Save Changes
+                        </button>
+                    </form>
+                </div>
+
+                <!-- My Cats Tab -->
+                <div id="catsTab" class="tab-content">
+                    <div id="catsContainer">
+                        <!-- Cat cards will be inserted here -->
+                    </div>
+                    <button class="add-cat-btn" onclick="addNewCat()">
+                        ➕ Add Another Cat
+                    </button>
+                </div>
+
+                <!-- My Posts Tab -->
+                <div id="postsTab" class="tab-content">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalPosts">0</div>
+                            <div class="stat-label">Total Posts</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalLikes">0</div>
+                            <div class="stat-label">Total Likes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalComments">0</div>
+                            <div class="stat-label">Total Comments</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; padding: 2rem; color: #4caf50;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📸</div>
+                        <p>You haven't shared any cat tax yet!</p>
+                        <p>Start sharing your adorable cats with the community.</p>
+                        <button class="cta-button" onclick="closeUserCenter(); openPostModal();" style="margin-top: 1rem;">
+                            Share Your First Cat Tax!
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Statistics Tab -->
+                <div id="statsTab" class="tab-content">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="memberSince">0</div>
+                            <div class="stat-label">Days as Member</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalCats">0</div>
+                            <div class="stat-label">Cats Registered</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="profileViews">42</div>
+                            <div class="stat-label">Profile Views</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="communityRank">#1</div>
+                            <div class="stat-label">Community Rank</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 2rem; color: #4caf50;">
+                        <h3>🎉 Congratulations! 🎉</h3>
+                        <p>You're our very first community member!</p>
+                        <p>Thank you for joining CatTax and helping us build this amazing cat-loving community! 🐱💕</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Create Post Modal -->
     <div id="postModal" class="modal post-modal">
         <div class="modal-content">
@@ -1261,8 +1637,154 @@
         let catCount = 1;
         let selectedTags = [];
         let isLoggedIn = false;
+        let currentUser = null;
+        let userCats = [];
 
-        // Post Modal Functions
+        // User Center Functions
+        function openUserCenter() {
+            document.getElementById('userCenterModal').style.display = 'block';
+            loadUserData();
+        }
+
+        function closeUserCenter() {
+            document.getElementById('userCenterModal').style.display = 'none';
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function loadUserData() {
+            if (currentUser) {
+                // Load profile data
+                document.getElementById('profileName').value = currentUser.name || '';
+                document.getElementById('profileEmail').value = currentUser.email || '';
+                document.getElementById('profileOccupation').value = currentUser.occupation || '';
+                document.getElementById('profileAdoptionDate').value = currentUser.adoptionDate || '';
+
+                // Load avatar
+                if (currentUser.avatar) {
+                    document.getElementById('currentAvatarImg').src = currentUser.avatar;
+                    document.getElementById('currentAvatarImg').style.display = 'block';
+                    document.getElementById('avatarPlaceholder').style.display = 'none';
+                }
+
+                // Load cats data
+                loadCatsData();
+
+                // Load stats
+                loadStatsData();
+            }
+        }
+
+        function loadCatsData() {
+            const container = document.getElementById('catsContainer');
+            container.innerHTML = '';
+
+            if (userCats.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #4caf50;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🐱</div>
+                        <p>No cats registered yet!</p>
+                        <p>Add your first furry friend to get started.</p>
+                    </div>
+                `;
+            } else {
+                userCats.forEach((cat, index) => {
+                    const catCard = document.createElement('div');
+                    catCard.className = 'cat-card';
+                    catCard.innerHTML = `
+                        <div class="cat-header">
+                            <span class="cat-name">🐱 ${cat.name}</span>
+                            <button class="edit-cat-btn" onclick="editCat(${index})">✏️ Edit</button>
+                        </div>
+                        <div class="cat-info">
+                            <div class="cat-detail"><strong>Breed:</strong> ${cat.breed}</div>
+                            <div class="cat-detail"><strong>Gender:</strong> ${cat.gender}</div>
+                            <div class="cat-detail"><strong>Birthday:</strong> ${cat.birthday}</div>
+                            <div class="cat-detail"><strong>Spayed/Neutered:</strong> ${cat.neutered}</div>
+                        </div>
+                    `;
+                    container.appendChild(catCard);
+                });
+            }
+        }
+
+        function loadStatsData() {
+            // Calculate days as member
+            if (currentUser && currentUser.joinDate) {
+                const joinDate = new Date(currentUser.joinDate);
+                const today = new Date();
+                const diffTime = Math.abs(today - joinDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                document.getElementById('memberSince').textContent = diffDays;
+            }
+
+            // Update cat count
+            document.getElementById('totalCats').textContent = userCats.length;
+        }
+
+        function toggleUserDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function handleLogout() {
+            isLoggedIn = false;
+            currentUser = null;
+            userCats = [];
+            toggleUserState();
+            closeUserCenter();
+            alert('You have been logged out successfully! 👋');
+        }
+
+        // Avatar upload in user center
+        document.getElementById('newAvatarInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const avatarUrl = e.target.result;
+                    
+                    // Update user center avatar
+                    document.getElementById('currentAvatarImg').src = avatarUrl;
+                    document.getElementById('currentAvatarImg').style.display = 'block';
+                    document.getElementById('avatarPlaceholder').style.display = 'none';
+                    
+                    // Update navigation avatar
+                    document.getElementById('userAvatar').src = avatarUrl;
+                    
+                    // Save to user data
+                    if (currentUser) {
+                        currentUser.avatar = avatarUrl;
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Profile update form
+        document.getElementById('profileUpdateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (currentUser) {
+                currentUser.name = document.getElementById('profileName').value;
+                currentUser.occupation = document.getElementById('profileOccupation').value;
+                currentUser.adoptionDate = document.getElementById('profileAdoptionDate').value;
+                
+                alert('Profile updated successfully! 💾');
+            }
+        });
         function openPostModal() {
             document.getElementById('postModal').style.display = 'block';
         }
@@ -1395,6 +1917,18 @@
             console.log('Registration Data:', registrationData);
             alert(`Welcome to CatTax, ${registrationData.owner.name}! 🎉\n\nYou've registered ${registrationData.cats.length} cat(s):\n${registrationData.cats.map(cat => `• ${cat.name} (${cat.breed})`).join('\n')}`);
             
+            // Save user data
+            currentUser = {
+                name: registrationData.owner.name,
+                email: registrationData.owner.email,
+                occupation: registrationData.owner.occupation,
+                adoptionDate: registrationData.owner.adoptionDate,
+                avatar: null,
+                joinDate: new Date().toISOString()
+            };
+            
+            userCats = registrationData.cats;
+
             // Auto login after registration
             isLoggedIn = true;
             
@@ -1403,7 +1937,9 @@
             if (avatarFile && avatarFile.size > 0) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('userAvatar').src = e.target.result;
+                    const avatarUrl = e.target.result;
+                    document.getElementById('userAvatar').src = avatarUrl;
+                    currentUser.avatar = avatarUrl;
                 };
                 reader.readAsDataURL(avatarFile);
             }
@@ -1430,6 +1966,26 @@
             if (loginData.email && loginData.password) {
                 alert(`Welcome back! 🎉\n\nLogged in as: ${loginData.email}\nRemember me: ${loginData.rememberMe ? 'Yes' : 'No'}`);
                 
+                // Mock user data for demo (in real app, this would come from server)
+                currentUser = {
+                    name: 'Demo User',
+                    email: loginData.email,
+                    occupation: 'Cat Lover',
+                    adoptionDate: '2023-01-01',
+                    avatar: null,
+                    joinDate: '2024-01-01'
+                };
+                
+                userCats = [
+                    {
+                        name: 'Whiskers',
+                        breed: 'Mixed',
+                        gender: 'Male',
+                        birthday: '2022-03-15',
+                        neutered: 'Yes'
+                    }
+                ];
+                
                 // Switch to logged-in state
                 isLoggedIn = true;
                 toggleUserState();
@@ -1442,6 +1998,8 @@
             const loginModal = document.getElementById('loginModal');
             const registerModal = document.getElementById('registerModal');
             const postModal = document.getElementById('postModal');
+            const userCenterModal = document.getElementById('userCenterModal');
+            const userDropdown = document.getElementById('userDropdown');
             
             if (event.target == loginModal) {
                 closeLoginModal();
@@ -1451,6 +2009,12 @@
             }
             if (event.target == postModal) {
                 closePostModal();
+            }
+            if (event.target == userCenterModal) {
+                closeUserCenter();
+            }
+            if (!event.target.matches('.user-avatar') && !userDropdown.contains(event.target)) {
+                userDropdown.classList.remove('show');
             }
         }
 
