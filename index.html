@@ -63,6 +63,7 @@
             font-weight: bold;
             color: #2e7d32;
             text-decoration: none;
+            cursor: pointer;
         }
 
         .search-container {
@@ -154,59 +155,621 @@
             box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
-        /* Main Content */
-        .main-content {
+        /* Main Layout */
+        .main-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            padding: 2rem;
+            min-height: calc(100vh - 100px);
+        }
+
+        .content-area {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        /* Post Controls */
+        .post-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 235, 59, 0.3);
+        }
+
+        .sort-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .sort-tab {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 2px solid #e8f5e8;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #4caf50;
+            transition: all 0.3s ease;
+            font-family: 'Broadway', cursive, sans-serif;
+        }
+
+        .sort-tab.active {
+            background: linear-gradient(45deg, #ffeb3b, #ffc107);
+            color: #2e7d32;
+            border-color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        .sort-tab:hover {
+            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .create-post-btn {
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Broadway', cursive, sans-serif;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .create-post-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Posts List */
+        .posts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .post-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 235, 59, 0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .post-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: #ffeb3b;
+        }
+
+        .post-header {
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 235, 59, 0.3);
+        }
+
+        .post-author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ffeb3b;
+            object-fit: cover;
+        }
+
+        .post-author-info {
+            flex: 1;
+        }
+
+        .post-author-name {
+            font-weight: bold;
+            color: #2e7d32;
+            font-size: 0.9rem;
+        }
+
+        .post-timestamp {
+            color: #81c784;
+            font-size: 0.8rem;
+        }
+
+        .post-content {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .post-votes {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - 100px);
-            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 235, 59, 0.1);
+            min-width: 60px;
+        }
+
+        .vote-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #81c784;
+            padding: 0.25rem;
+        }
+
+        .vote-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .vote-btn.upvoted {
+            color: #4caf50;
+        }
+
+        .vote-btn.downvoted {
+            color: #f44336;
+        }
+
+        .vote-score {
+            font-weight: bold;
+            color: #2e7d32;
+            margin: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+
+        .post-main {
+            flex: 1;
+            padding: 1rem 1.5rem;
+        }
+
+        .post-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .post-description {
+            color: #4caf50;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .post-image-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .post-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .post-image-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0 10px 0 10px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .post-image-container:hover .post-image-overlay {
+            opacity: 1;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-tag {
+            background: rgba(76, 175, 80, 0.2);
+            color: #2e7d32;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .post-tag:hover {
+            background: #4caf50;
+            color: white;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #81c784;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: color 0.3s ease;
+            font-family: 'Broadway', cursive, sans-serif;
+        }
+
+        .action-btn:hover {
+            color: #4caf50;
+        }
+
+        /* Sidebar Styles */
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .community-stats {
+            background: rgba(255, 235, 59, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 235, 59, 0.3);
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .stat-label {
+            color: #4caf50;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .community-rules {
+            list-style: none;
+        }
+
+        .rule-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 235, 59, 0.2);
+            font-size: 0.9rem;
+            color: #4caf50;
+        }
+
+        .rule-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Post Detail Modal */
+        .post-detail-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .post-detail-content {
+            background: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .post-detail-header {
+            background: linear-gradient(45deg, #ffeb3b, #4caf50);
+            color: #2e7d32;
+            padding: 1.5rem;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+        }
+
+        .post-detail-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            color: #2e7d32;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .post-detail-close:hover {
+            transform: scale(1.2);
+        }
+
+        .post-detail-body {
             padding: 2rem;
         }
 
-        .hero-section {
-            max-width: 800px;
-            margin: 0 auto;
+        .post-detail-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
         }
 
-        .hero-title {
-            font-size: 3rem;
+        .post-detail-title {
+            font-size: 1.5rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+
+        .post-detail-description {
+            color: #4caf50;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .post-detail-votes {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 235, 59, 0.1);
+            border-radius: 10px;
+        }
+
+        .detail-vote-btn {
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .detail-vote-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .detail-vote-btn.downvote {
+            background: linear-gradient(45deg, #f44336, #ff5722);
+        }
+
+        .detail-vote-score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            border-top: 2px solid rgba(255, 235, 59, 0.3);
+            padding-top: 1.5rem;
+        }
+
+        .comments-title {
+            font-size: 1.2rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+
+        .comment-form {
+            background: rgba(255, 235, 59, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .comment-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e8f5e8;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: white;
+            resize: vertical;
+            min-height: 80px;
+            font-family: 'Broadway', cursive, sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .comment-textarea:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .comment-submit {
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Broadway', cursive, sans-serif;
+        }
+
+        .comment-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .comment {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid #ffeb3b;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: #2e7d32;
+            font-size: 0.9rem;
+        }
+
+        .comment-time {
+            color: #81c784;
+            font-size: 0.8rem;
+        }
+
+        .comment-content {
+            color: #4caf50;
+            line-height: 1.5;
+        }
+
+        /* Welcome Message */
+        .welcome-message {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-title {
+            font-size: 2rem;
             color: #2e7d32;
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(255, 193, 7, 0.3);
-            animation: bounce 2s ease-in-out infinite;
         }
 
-        .hero-subtitle {
-            font-size: 1.2rem;
+        .welcome-subtitle {
+            font-size: 1.1rem;
             color: #4caf50;
             margin-bottom: 2rem;
             opacity: 0.9;
         }
 
-        .cat-emoji {
-            font-size: 4rem;
-            margin: 2rem 0;
-            animation: wiggle 3s ease-in-out infinite;
-        }
-
-        .cta-button {
+        .welcome-cta {
             background: linear-gradient(45deg, #4caf50, #8bc34a);
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             padding: 1rem 2rem;
             border: none;
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
-            margin-top: 1rem;
+            font-family: 'Broadway', cursive, sans-serif;
         }
 
-        .cta-button:hover {
+        .welcome-cta:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #4caf50;
+        }
+
+        .empty-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2e7d32;
+        }
+
+        .empty-description {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #4caf50;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e8f5e8;
+            border-top: 4px solid #4caf50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Animations */
@@ -353,19 +916,6 @@
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
 
-        .remove-cat-btn {
-            background: #ff5722;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            float: right;
-            margin-top: -3rem;
-            margin-right: 1rem;
-        }
-
         .submit-btn {
             background: linear-gradient(45deg, #ffeb3b, #ffc107);
             color: #2e7d32;
@@ -404,32 +954,113 @@
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
 
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 1rem 0;
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
         }
 
-        .checkbox {
-            width: 18px;
-            height: 18px;
-            accent-color: #4caf50;
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            z-index: 1001;
+            border: 2px solid #ffeb3b;
+            overflow: hidden;
         }
 
-        .checkbox-label {
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-item {
             color: #2e7d32;
-            font-size: 0.9rem;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            cursor: pointer;
         }
 
-        .login-modal .modal-content {
-            max-width: 400px;
+        .dropdown-item:hover {
+            background-color: rgba(255, 235, 59, 0.2);
         }
 
-        .post-modal .modal-content {
-            max-width: 700px;
+        .dropdown-divider {
+            height: 1px;
+            background-color: #e8f5e8;
+            margin: 0;
         }
 
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .sidebar {
+                order: 2;
+                position: static;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .search-container {
+                order: 3;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .post-controls {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .sort-tabs {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .post-content {
+                flex-direction: column;
+            }
+
+            .post-votes {
+                flex-direction: row;
+                justify-content: center;
+                min-width: auto;
+                padding: 0.5rem;
+            }
+
+            .post-detail-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+
+            .post-detail-body {
+                padding: 1rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+        }
+
+        /* Post Form Styles (from previous code) */
         .upload-area {
             border: 3px dashed #ffeb3b;
             border-radius: 15px;
@@ -580,20 +1211,6 @@
             box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
-        .post-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
-        }
-
-        .form-row {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
         /* Story Section */
         .story-section {
             background: linear-gradient(135deg, rgba(255, 235, 59, 0.2) 0%, rgba(76, 175, 80, 0.2) 100%);
@@ -677,30 +1294,6 @@
             opacity: 0.7;
         }
 
-        /* Responsive Design for Story Section */
-        @media (max-width: 768px) {
-            .story-section {
-                padding: 2rem 1rem;
-            }
-
-            .story-title {
-                font-size: 1.5rem;
-            }
-
-            .story-text {
-                font-size: 1.1rem;
-            }
-
-            .story-quote {
-                padding: 0 1rem;
-            }
-
-            .story-content {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-        }
-
         /* Feedback Section */
         .feedback-section {
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(255, 235, 59, 0.1) 100%);
@@ -770,12 +1363,6 @@
             min-height: 120px;
         }
 
-        .feedback-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
         .feedback-submit {
             background: linear-gradient(45deg, #4caf50, #8bc34a);
             color: white;
@@ -831,247 +1418,34 @@
             box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
         }
 
-        /* User Center Styles */
-        .user-center-modal .modal-content {
-            max-width: 800px;
-        }
-
-        .user-center-nav {
-            display: flex;
-            border-bottom: 2px solid #e8f5e8;
-            margin-bottom: 2rem;
-        }
-
-        .nav-tab {
-            flex: 1;
-            padding: 1rem;
-            text-align: center;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            color: #4caf50;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            font-family: 'Broadway', cursive, sans-serif;
-        }
-
-        .nav-tab.active {
-            background: linear-gradient(45deg, #ffeb3b, #ffc107);
-            color: #2e7d32;
-            border-radius: 10px 10px 0 0;
-        }
-
-        .nav-tab:hover {
-            background: rgba(255, 235, 59, 0.3);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .profile-avatar-section {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: rgba(255, 235, 59, 0.1);
-            border-radius: 15px;
-            border: 2px solid #ffeb3b;
-        }
-
-        .current-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid #ffeb3b;
-            object-fit: cover;
-        }
-
-        .avatar-placeholder {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px dashed #ffeb3b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 235, 59, 0.2);
-            font-size: 3rem;
-            color: #4caf50;
-        }
-
-        .avatar-info {
-            flex: 1;
-        }
-
-        .avatar-info h3 {
-            color: #2e7d32;
-            margin-bottom: 0.5rem;
-        }
-
-        .avatar-info p {
-            color: #4caf50;
-            margin-bottom: 1rem;
-        }
-
-        .upload-avatar-btn {
-            background: linear-gradient(45deg, #4caf50, #8bc34a);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: 'Broadway', cursive, sans-serif;
-        }
-
-        .upload-avatar-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 1.5rem;
-            border-radius: 15px;
-            text-align: center;
-            border: 2px solid rgba(76, 175, 80, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #4caf50;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: #2e7d32;
-            font-size: 1rem;
-        }
-
-        .cat-card {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 2px solid #ffeb3b;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .cat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
-        }
-
-        .cat-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .cat-name {
-            font-size: 1.3rem;
-            color: #2e7d32;
-            font-weight: bold;
-        }
-
-        .cat-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 0.5rem;
-        }
-
-        .cat-detail {
-            color: #4caf50;
-            font-size: 0.9rem;
-        }
-
-        .edit-cat-btn {
-            background: transparent;
-            border: 2px solid #4caf50;
-            color: #4caf50;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .edit-cat-btn:hover {
-            background: #4caf50;
-            color: white;
-        }
-
-        .user-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            border-radius: 10px;
-            z-index: 1001;
-            border: 2px solid #ffeb3b;
-            overflow: hidden;
-        }
-
-        .dropdown-content.show {
-            display: block;
-        }
-
-        .dropdown-item {
-            color: #2e7d32;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: background-color 0.3s;
-            cursor: pointer;
-        }
-
-        .dropdown-item:hover {
-            background-color: rgba(255, 235, 59, 0.2);
-        }
-
-        .dropdown-divider {
-            height: 1px;
-            background-color: #e8f5e8;
-            margin: 0;
-        }
-
         .feedback-emoji {
             font-size: 1.5rem;
             margin-right: 0.5rem;
         }
 
-        /* Responsive Design for Feedback Section */
+        /* Responsive Design for Story and Feedback Sections */
         @media (max-width: 768px) {
+            .story-section {
+                padding: 2rem 1rem;
+            }
+
+            .story-title {
+                font-size: 1.5rem;
+            }
+
+            .story-text {
+                font-size: 1.1rem;
+            }
+
+            .story-quote {
+                padding: 0 1rem;
+            }
+
+            .story-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
             .feedback-section {
                 padding: 2rem 1rem;
             }
@@ -1084,110 +1458,22 @@
                 padding: 1.5rem;
             }
 
-            .feedback-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 0 1rem;
-            }
-
-            .search-container {
-                order: 3;
-                margin: 0;
-                max-width: 100%;
-            }
-
-            .hero-title {
-                font-size: 2rem;
-            }
-
-            .auth-buttons {
-                flex-direction: column;
+            .feedback-login-btn {
+                display: block;
                 width: 100%;
-            }
-
-            .modal-content {
-                width: 95%;
-                margin: 5% auto;
-            }
-
-            .modal-body {
-                padding: 1rem;
-            }
-        }
-
-        /* Decorative elements */
-        .floating-hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .heart {
-            position: absolute;
-            color: #ffeb3b;
-            font-size: 1.5rem;
-            opacity: 0.6;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .heart:nth-child(2) { left: 20%; animation-delay: 1s; }
-        .heart:nth-child(3) { left: 30%; animation-delay: 2s; }
-        .heart:nth-child(4) { left: 40%; animation-delay: 3s; }
-        .heart:nth-child(5) { left: 50%; animation-delay: 4s; }
-        .heart:nth-child(6) { left: 60%; animation-delay: 5s; }
-        .heart:nth-child(7) { left: 70%; animation-delay: 0.5s; }
-        .heart:nth-child(8) { left: 80%; animation-delay: 1.5s; }
-        .heart:nth-child(9) { left: 90%; animation-delay: 2.5s; }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10%, 90% {
-                opacity: 0.6;
-            }
-            50% {
-                transform: translateY(-20px) rotate(180deg);
-                opacity: 0.8;
+                margin-bottom: 1rem;
+                margin-right: 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Floating decorative elements -->
-    <div class="floating-hearts">
-        <div class="heart">🐾</div>
-        <div class="heart">💛</div>
-        <div class="heart">🐾</div>
-        <div class="heart">💚</div>
-        <div class="heart">🐾</div>
-        <div class="heart">😸</div>
-        <div class="heart">🐾</div>
-        <div class="heart">😺</div>
-        <div class="heart">🐾</div>
-        <div class="heart">💛</div>
-        <div class="heart">😻</div>
-    </div>
-
     <!-- Header/Navigation -->
     <header class="header">
         <nav class="nav-container">
             <div class="logo-section">
                 <div class="logo">🐱</div>
-                <a href="/" class="site-name">CatTax</a>
+                <div class="site-name" onclick="showHomePage()">CatTax</div>
             </div>
             
             <div class="search-container">
@@ -1200,7 +1486,6 @@
                     <a href="#" class="btn btn-register" onclick="openRegisterModal()">Join Us</a>
                 </div>
                 
-                <!-- User avatar (shown when logged in) -->
                 <div class="user-dropdown">
                     <img src="https://via.placeholder.com/40x40/4caf50/ffffff?text=U" alt="User Avatar" class="user-avatar" id="userAvatar" onclick="toggleUserDropdown()">
                     <div class="dropdown-content" id="userDropdown">
@@ -1221,16 +1506,94 @@
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <div class="hero-section">
-            <h1 class="hero-title">Pay your cat tax and join our community</h1>
-            <p class="hero-subtitle">Share your adorable cats, connect with fellow cat lovers, and spread the joy! 🐾</p>
-            
-            <div class="cat-emoji">🐱💕</div>
-            
-            <button class="cta-button" onclick="handleGetStarted()">Get Started</button>
+    <div class="main-layout">
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Welcome Message (shown when not logged in or no posts) -->
+            <div class="welcome-message" id="welcomeMessage">
+                <h1 class="welcome-title">Welcome to CatTax! 🐱💕</h1>
+                <p class="welcome-subtitle">Share your adorable cats, connect with fellow cat lovers, and spread the joy! 🐾</p>
+                <button class="welcome-cta" onclick="handleGetStarted()">Get Started</button>
+            </div>
+
+            <!-- Post Controls -->
+            <div class="post-controls" id="postControls" style="display: none;">
+                <div class="sort-tabs">
+                    <button class="sort-tab active" onclick="sortPosts('hot')">🔥 Hot</button>
+                    <button class="sort-tab" onclick="sortPosts('new')">🆕 New</button>
+                    <button class="sort-tab" onclick="sortPosts('top')">⭐ Top</button>
+                    <button class="sort-tab" onclick="sortPosts('rising')">📈 Rising</button>
+                </div>
+                <button class="create-post-btn" onclick="handleCreatePost()">
+                    📸 Share Cat Tax
+                </button>
+            </div>
+
+            <!-- Posts Container -->
+            <div class="posts-container" id="postsContainer">
+                <!-- Loading state -->
+                <div class="loading" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <p>Loading adorable cats...</p>
+                </div>
+            </div>
         </div>
-    </main>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Community Stats -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">📊 Community Stats</h3>
+                <div class="community-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Members</span>
+                        <span class="stat-value" id="memberCount">1,337</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Online</span>
+                        <span class="stat-value" id="onlineCount">42</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Cat Taxes Paid</span>
+                        <span class="stat-value" id="postCount">2,847</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Upvotes</span>
+                        <span class="stat-value" id="upvoteCount">15,920</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Rules -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">📋 Community Rules</h3>
+                <ul class="community-rules">
+                    <li class="rule-item">1. Be kind and respectful to all cat lovers</li>
+                    <li class="rule-item">2. Only post cat-related content</li>
+                    <li class="rule-item">3. No spam or self-promotion</li>
+                    <li class="rule-item">4. Use appropriate titles and descriptions</li>
+                    <li class="rule-item">5. Tag NSFW content appropriately</li>
+                    <li class="rule-item">6. Report inappropriate content</li>
+                    <li class="rule-item">7. Have fun and share the cat love! 🐾</li>
+                </ul>
+            </div>
+
+            <!-- Popular Tags -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">🏷️ Popular Tags</h3>
+                <div class="suggested-tags">
+                    <span class="suggested-tag" onclick="filterByTag('cute')">#cute</span>
+                    <span class="suggested-tag" onclick="filterByTag('kitten')">#kitten</span>
+                    <span class="suggested-tag" onclick="filterByTag('fluffy')">#fluffy</span>
+                    <span class="suggested-tag" onclick="filterByTag('orange')">#orange</span>
+                    <span class="suggested-tag" onclick="filterByTag('rescue')">#rescue</span>
+                    <span class="suggested-tag" onclick="filterByTag('sleepy')">#sleepy</span>
+                    <span class="suggested-tag" onclick="filterByTag('playful')">#playful</span>
+                    <span class="suggested-tag" onclick="filterByTag('tabby')">#tabby</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Story Section -->
     <section class="story-section">
@@ -1309,234 +1672,41 @@
         </div>
     </section>
 
-    <!-- Registration Modal -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">🐱 Join CatTax Community! 🐾</h2>
-                <span class="close" onclick="closeRegisterModal()">&times;</span>
+    <!-- Post Detail Modal -->
+    <div id="postDetailModal" class="post-detail-modal">
+        <div class="post-detail-content">
+            <div class="post-detail-header">
+                <h2 class="modal-title">📸 Cat Tax Details 🐾</h2>
+                <span class="post-detail-close" onclick="closePostDetail()">&times;</span>
             </div>
-            <div class="modal-body">
-                <form id="registrationForm">
-                    <!-- Pet Profiles Section -->
-                    <div class="section">
-                        <h3 class="section-title">🐱 Pet Profiles</h3>
-                        <div id="catProfiles">
-                            <div class="cat-profile">
-                                <h4 style="color: #4caf50; margin-bottom: 1rem;">Cat #1</h4>
-                                <div class="form-group">
-                                    <label class="form-label">Cat's Name</label>
-                                    <input type="text" class="form-input" name="catName[]" placeholder="Enter your cat's name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Cat's Birthday</label>
-                                    <input type="date" class="form-input" name="catBirthday[]" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Cat's Breed</label>
-                                    <select class="form-select" name="catBreed[]" required>
-                                        <option value="">Select a breed</option>
-                                        <option value="persian">Persian</option>
-                                        <option value="siamese">Siamese</option>
-                                        <option value="maine-coon">Maine Coon</option>
-                                        <option value="british-shorthair">British Shorthair</option>
-                                        <option value="ragdoll">Ragdoll</option>
-                                        <option value="bengal">Bengal</option>
-                                        <option value="abyssinian">Abyssinian</option>
-                                        <option value="russian-blue">Russian Blue</option>
-                                        <option value="scottish-fold">Scottish Fold</option>
-                                        <option value="mixed">Mixed Breed</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Cat's Gender</label>
-                                    <select class="form-select" name="catGender[]" required>
-                                        <option value="">Select gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Spayed/Neutered</label>
-                                    <select class="form-select" name="catNeutered[]" required>
-                                        <option value="">Select status</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" class="add-cat-btn" onclick="addCatProfile()">
-                            ➕ Add Another Cat's Information
+            <div class="post-detail-body">
+                <div id="postDetailContent">
+                    <!-- Post content will be inserted here -->
+                </div>
+                
+                <!-- Comments Section -->
+                <div class="comments-section">
+                    <h3 class="comments-title">💬 Comments (<span id="commentCount">0</span>)</h3>
+                    
+                    <!-- Comment Form -->
+                    <div class="comment-form" id="commentForm" style="display: none;">
+                        <textarea class="comment-textarea" placeholder="Share your thoughts about this adorable cat..." maxlength="500"></textarea>
+                        <button class="comment-submit" onclick="submitComment()">💬 Add Comment</button>
+                    </div>
+                    
+                    <!-- Login prompt for comments -->
+                    <div class="comment-form" id="commentLoginPrompt">
+                        <p style="text-align: center; color: #4caf50; margin-bottom: 1rem;">
+                            Please login to leave a comment! 🐱
+                        </p>
+                        <button class="comment-submit" onclick="openLoginModal()" style="background: linear-gradient(45deg, #ffeb3b, #ffc107); color: #2e7d32;">
+                            🔑 Login to Comment
                         </button>
                     </div>
-
-                    <!-- Owner Profile Section -->
-                    <div class="section">
-                        <h3 class="section-title">👤 Owner Profile</h3>
-                        <div class="form-group">
-                            <label class="form-label">Profile Avatar</label>
-                            <div class="upload-area" onclick="document.getElementById('avatarInput').click()" style="padding: 1rem; margin-bottom: 1rem;">
-                                <div class="upload-icon" style="font-size: 2rem;">👤</div>
-                                <div class="upload-text" style="font-size: 1rem;">Upload your profile photo</div>
-                                <div class="upload-subtext">JPG, PNG (Max 5MB)</div>
-                            </div>
-                            <input type="file" id="avatarInput" class="file-input" name="avatar" accept="image/*">
-                            <img id="avatarPreview" class="image-preview" alt="Avatar Preview" style="max-height: 150px; border-radius: 50%; width: 150px; height: 150px; object-fit: cover;">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Your Name</label>
-                            <input type="text" class="form-input" name="ownerName" placeholder="Enter your full name" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Adoption Date</label>
-                            <input type="date" class="form-input" name="adoptionDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Occupation</label>
-                            <input type="text" class="form-input" name="occupation" placeholder="What do you do for work?" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-input" name="email" placeholder="your.email@example.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-input" name="password" placeholder="Create a secure password" required minlength="6">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="submit-btn">
-                        🎉 Join CatTax Community!
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- User Center Modal -->
-    <div id="userCenterModal" class="modal user-center-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">👤 User Center 🐾</h2>
-                <span class="close" onclick="closeUserCenter()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <!-- Navigation Tabs -->
-                <div class="user-center-nav">
-                    <button class="nav-tab active" onclick="switchTab('profile')">👤 Profile</button>
-                    <button class="nav-tab" onclick="switchTab('cats')">🐱 My Cats</button>
-                    <button class="nav-tab" onclick="switchTab('posts')">📸 My Posts</button>
-                    <button class="nav-tab" onclick="switchTab('stats')">📊 Statistics</button>
-                </div>
-
-                <!-- Profile Tab -->
-                <div id="profileTab" class="tab-content active">
-                    <!-- Avatar Section -->
-                    <div class="profile-avatar-section">
-                        <div id="currentAvatarContainer">
-                            <div class="avatar-placeholder" id="avatarPlaceholder">👤</div>
-                            <img id="currentAvatarImg" class="current-avatar" style="display: none;" alt="Current Avatar">
-                        </div>
-                        <div class="avatar-info">
-                            <h3>Profile Photo</h3>
-                            <p>Upload a photo to personalize your profile and make it easier for other cat lovers to recognize you!</p>
-                            <button class="upload-avatar-btn" onclick="document.getElementById('newAvatarInput').click()">
-                                📷 Upload New Avatar
-                            </button>
-                            <input type="file" id="newAvatarInput" class="file-input" accept="image/*">
-                        </div>
-                    </div>
-
-                    <!-- Profile Information -->
-                    <form id="profileUpdateForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Your Name</label>
-                                <input type="text" class="form-input" id="profileName" name="profileName" placeholder="Enter your name">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-input" id="profileEmail" name="profileEmail" placeholder="your.email@example.com" readonly>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Occupation</label>
-                                <input type="text" class="form-input" id="profileOccupation" name="profileOccupation" placeholder="What do you do?">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Cat Owner Since</label>
-                                <input type="date" class="form-input" id="profileAdoptionDate" name="profileAdoptionDate">
-                            </div>
-                        </div>
-                        <button type="submit" class="submit-btn">
-                            💾 Save Changes
-                        </button>
-                    </form>
-                </div>
-
-                <!-- My Cats Tab -->
-                <div id="catsTab" class="tab-content">
-                    <div id="catsContainer">
-                        <!-- Cat cards will be inserted here -->
-                    </div>
-                    <button class="add-cat-btn" onclick="addNewCat()">
-                        ➕ Add Another Cat
-                    </button>
-                </div>
-
-                <!-- My Posts Tab -->
-                <div id="postsTab" class="tab-content">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-number" id="totalPosts">0</div>
-                            <div class="stat-label">Total Posts</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" id="totalLikes">0</div>
-                            <div class="stat-label">Total Likes</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" id="totalComments">0</div>
-                            <div class="stat-label">Total Comments</div>
-                        </div>
-                    </div>
-                    <div style="text-align: center; padding: 2rem; color: #4caf50;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">📸</div>
-                        <p>You haven't shared any cat tax yet!</p>
-                        <p>Start sharing your adorable cats with the community.</p>
-                        <button class="cta-button" onclick="closeUserCenter(); openPostModal();" style="margin-top: 1rem;">
-                            Share Your First Cat Tax!
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Statistics Tab -->
-                <div id="statsTab" class="tab-content">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-number" id="memberSince">0</div>
-                            <div class="stat-label">Days as Member</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" id="totalCats">0</div>
-                            <div class="stat-label">Cats Registered</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" id="profileViews">42</div>
-                            <div class="stat-label">Profile Views</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" id="communityRank">#1</div>
-                            <div class="stat-label">Community Rank</div>
-                        </div>
-                    </div>
-                    <div style="text-align: center; margin-top: 2rem; color: #4caf50;">
-                        <h3>🎉 Congratulations! 🎉</h3>
-                        <p>You're our very first community member!</p>
-                        <p>Thank you for joining CatTax and helping us build this amazing cat-loving community! 🐱💕</p>
+                    
+                    <!-- Comments List -->
+                    <div class="comments-list" id="commentsList">
+                        <!-- Comments will be inserted here -->
                     </div>
                 </div>
             </div>
@@ -1544,8 +1714,8 @@
     </div>
 
     <!-- Create Post Modal -->
-    <div id="postModal" class="modal post-modal">
-        <div class="modal-content">
+    <div id="postModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
             <div class="modal-header">
                 <h2 class="modal-title">📸 Share Your Cat Tax! 🐾</h2>
                 <span class="close" onclick="closePostModal()">&times;</span>
@@ -1603,9 +1773,43 @@
         </div>
     </div>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal login-modal">
+    <!-- Registration Modal -->
+    <div id="registerModal" class="modal">
         <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🐱 Join CatTax Community! 🐾</h2>
+                <span class="close" onclick="closeRegisterModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="registrationForm">
+                    <!-- Basic Info Section -->
+                    <div class="section">
+                        <h3 class="section-title">👤 Basic Information</h3>
+                        <div class="form-group">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" class="form-input" name="ownerName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" name="email" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-input" name="password" placeholder="Create a secure password" required minlength="6">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        🎉 Join CatTax Community!
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
             <div class="modal-header">
                 <h2 class="modal-title">🐱 Welcome Back! 🐾</h2>
                 <span class="close" onclick="closeLoginModal()">&times;</span>
@@ -1620,11 +1824,6 @@
                         <label class="form-label">Password</label>
                         <input type="password" class="form-input" name="loginPassword" placeholder="Enter your password" required>
                     </div>
-                    
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="rememberMe" name="rememberMe" class="checkbox">
-                        <label for="rememberMe" class="checkbox-label">Remember me</label>
-                    </div>
 
                     <button type="submit" class="login-btn">
                         🎉 Login to CatTax!
@@ -1634,470 +1833,777 @@
         </div>
     </div>
 
+    <!-- 🔥 Firebase SDK - 添加在 </body> 之前 -->
+    <script type="module">
+        // 🔥 导入Firebase模块
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { 
+            getFirestore, 
+            collection, 
+            addDoc, 
+            getDocs, 
+            doc, 
+            updateDoc, 
+            query, 
+            orderBy,
+            onSnapshot,
+            serverTimestamp,
+            deleteDoc
+        } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+        // 🔥 您的Firebase配置 - 请替换为您的实际配置
+        const firebaseConfig = {
+            // ⚠️ 重要：请替换这些占位符为您的实际Firebase配置
+            apiKey: "AIzaSyDGY_FJPdY2Delktm7TVmk2ABFiG_B2IPQ",
+            authDomain: "cattax-website.firebaseapp.com",
+            projectId: "cattax-website",
+            storageBucket: "cattax-website.firebasestorage.app",
+            messagingSenderId: "181166498026",
+            appId:"1:181166498026:web:47e55636ec8f84d3cd3793",
+            measurementId: "G-5WVBLCGD9K"
+        };
+
+        // 🔥 初始化Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 🌍 将Firebase函数暴露到全局作用域，以便HTML中的onclick事件可以使用
+        window.db = db;
+        window.firestoreFunctions = {
+            collection,
+            addDoc,
+            getDocs,
+            doc,
+            updateDoc,
+            query,
+            orderBy,
+            onSnapshot,
+            serverTimestamp,
+            deleteDoc
+        };
+
+        console.log('🎉 Firebase初始化成功！');
+    </script>
+
     <script>
-        let catCount = 1;
+        // 🌍 全局变量
         let selectedTags = [];
         let isLoggedIn = false;
         let currentUser = null;
-        let userCats = [];
+        let posts = [];
+        let comments = {};
+        let currentSortMode = 'hot';
+        let currentPostId = null;
 
-        // Local Storage Functions (数据持久化)
-        function saveUserData() {
-            if (currentUser) {
-                const userData = {
-                    user: currentUser,
-                    cats: userCats,
-                    isLoggedIn: isLoggedIn,
-                    loginTime: new Date().toISOString()
-                };
-                // 模拟localStorage (在实际项目中应使用localStorage)
-                window.cattaxUserData = userData;
-            }
-        }
+        // 🔥 Firebase数据库引用
+        const { collection, addDoc, getDocs, doc, updateDoc, query, orderBy, onSnapshot, serverTimestamp } = window.firestoreFunctions;
+        const db = window.db;
 
-        function loadUserData() {
-            // 模拟从localStorage读取 (在实际项目中应使用localStorage)
-            const userData = window.cattaxUserData;
-            if (userData) {
-                currentUser = userData.user;
-                userCats = userData.cats || [];
-                isLoggedIn = userData.isLoggedIn || false;
-                
-                if (isLoggedIn) {
-                    // 恢复登录状态
-                    toggleUserState();
-                    
-                    // 恢复用户头像
-                    if (currentUser.avatar) {
-                        document.getElementById('userAvatar').src = currentUser.avatar;
-                    }
-                }
-                
-                return true;
-            }
-            return false;
-        }
+        // 📊 数据结构定义
+        // posts集合：存储所有帖子
+        // comments集合：存储所有评论  
+        // users集合：存储用户信息
 
-        function clearUserData() {
-            window.cattaxUserData = null;
-            currentUser = null;
-            userCats = [];
-            isLoggedIn = false;
-        }
-
-        // 页面加载时尝试恢复用户数据
+        // 🚀 页面初始化
         document.addEventListener('DOMContentLoaded', function() {
-            loadUserData();
+            console.log('🎯 页面加载完成，开始初始化...');
+            initializePage();
+            setupEventListeners();
         });
 
-        // User Center Functions
-        function openUserCenter() {
-            document.getElementById('userCenterModal').style.display = 'block';
-            loadUserCenterData();
-        }
-
-        function closeUserCenter() {
-            document.getElementById('userCenterModal').style.display = 'none';
-        }
-
-        function switchTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Show selected tab
-            document.getElementById(tabName + 'Tab').classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        function loadUserData() {
-            if (currentUser) {
-                // Load profile data
-                document.getElementById('profileName').value = currentUser.name || '';
-                document.getElementById('profileEmail').value = currentUser.email || '';
-                document.getElementById('profileOccupation').value = currentUser.occupation || '';
-                document.getElementById('profileAdoptionDate').value = currentUser.adoptionDate || '';
-
-                // Load avatar
-                if (currentUser.avatar) {
-                    document.getElementById('currentAvatarImg').src = currentUser.avatar;
-                    document.getElementById('currentAvatarImg').style.display = 'block';
-                    document.getElementById('avatarPlaceholder').style.display = 'none';
-                }
-
-                // Load cats data
-                loadCatsData();
-
-                // Load stats
-                loadStatsData();
-            }
-        }
-
-        function loadUserCenterData() {
-            if (currentUser) {
-                // Load profile data
-                document.getElementById('profileName').value = currentUser.name || '';
-                document.getElementById('profileEmail').value = currentUser.email || '';
-                document.getElementById('profileOccupation').value = currentUser.occupation || '';
-                document.getElementById('profileAdoptionDate').value = currentUser.adoptionDate || '';
-
-                // Load avatar
-                if (currentUser.avatar) {
-                    document.getElementById('currentAvatarImg').src = currentUser.avatar;
-                    document.getElementById('currentAvatarImg').style.display = 'block';
-                    document.getElementById('avatarPlaceholder').style.display = 'none';
-                }
-
-                // Load cats data
-                loadCatsData();
-
-                // Load stats
-                loadStatsData();
-            }
-        }
-
-        function loadCatsData() {
-            const container = document.getElementById('catsContainer');
-            container.innerHTML = '';
-
-            if (userCats.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: #4caf50;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🐱</div>
-                        <p>No cats registered yet!</p>
-                        <p>Add your first furry friend to get started.</p>
-                    </div>
-                `;
+        async function initializePage() {
+            console.log('🔄 初始化页面...');
+            
+            // 🔥 从Firebase加载数据
+            await loadPostsFromFirebase();
+            
+            // 🎨 显示内容
+            if (isLoggedIn) {
+                showPostsList();
             } else {
-                userCats.forEach((cat, index) => {
-                    const catCard = document.createElement('div');
-                    catCard.className = 'cat-card';
-                    catCard.innerHTML = `
-                        <div class="cat-header">
-                            <span class="cat-name">🐱 ${cat.name}</span>
-                            <button class="edit-cat-btn" onclick="editCat(${index})">✏️ Edit</button>
-                        </div>
-                        <div class="cat-info">
-                            <div class="cat-detail"><strong>Breed:</strong> ${cat.breed}</div>
-                            <div class="cat-detail"><strong>Gender:</strong> ${cat.gender}</div>
-                            <div class="cat-detail"><strong>Birthday:</strong> ${cat.birthday}</div>
-                            <div class="cat-detail"><strong>Spayed/Neutered:</strong> ${cat.neutered}</div>
+                showWelcomeMessage();
+            }
+        }
+
+        // 🔥 从Firebase加载帖子
+        async function loadPostsFromFirebase() {
+            try {
+                console.log('📥 从Firebase加载帖子...');
+                showLoading(true);
+                
+                const postsQuery = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
+                const querySnapshot = await getDocs(postsQuery);
+                
+                posts = [];
+                querySnapshot.forEach((doc) => {
+                    const postData = doc.data();
+                    posts.push({
+                        id: doc.id,
+                        ...postData,
+                        timestamp: postData.timestamp?.toDate() || new Date()
+                    });
+                });
+                
+                console.log(`✅ 成功加载 ${posts.length} 个帖子`);
+                showLoading(false);
+                
+            } catch (error) {
+                console.error('❌ 加载帖子失败:', error);
+                showLoading(false);
+                
+                // 📝 如果Firebase加载失败，使用示例数据
+                console.log('🔄 使用示例数据...');
+                loadSampleData();
+            }
+        }
+
+        // 📝 加载示例数据（用于演示或Firebase失败时）
+        function loadSampleData() {
+            const samplePosts = [
+                {
+                    id: 'sample1',
+                    title: "Meet Whiskers! My fluffy orange tabby who loves sunny windowsills 🌞",
+                    description: "This is Whiskers, my 3-year-old rescue cat. He spends most of his day lounging in the sun and judging my life choices. Isn't he just perfect? 🧡",
+                    image: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=500&h=400&fit=crop",
+                    author: {
+                        name: "CatLover42",
+                        avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face"
+                    },
+                    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
+                    votes: 342,
+                    userVote: 0,
+                    commentCount: 23,
+                    tags: ['orange', 'tabby', 'fluffy', 'rescue', 'cute']
+                },
+                {
+                    id: 'sample2',
+                    title: "Sleepy Sunday with my void cat Luna 🖤",
+                    description: "Luna is demonstrating the ancient art of professional napping. She's been perfecting this technique for 5 years now. Peak performance achieved! 😴",
+                    image: "https://images.unsplash.com/photo-1513245543132-31f507417b26?w=500&h=400&fit=crop",
+                    author: {
+                        name: "VoidParent",
+                        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                    },
+                    timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
+                    votes: 156,
+                    userVote: 0,
+                    commentCount: 12,
+                    tags: ['black', 'sleepy', 'void', 'cute', 'professional']
+                }
+            ];
+            
+            posts = samplePosts;
+            console.log('📝 示例数据加载完成');
+        }
+
+        // 🔥 保存帖子到Firebase
+        async function savePostToFirebase(postData) {
+            try {
+                console.log('💾 保存帖子到Firebase...', postData.title);
+                
+                const docRef = await addDoc(collection(db, 'posts'), {
+                    ...postData,
+                    timestamp: serverTimestamp()
+                });
+                
+                console.log('✅ 帖子保存成功，ID:', docRef.id);
+                return docRef.id;
+                
+            } catch (error) {
+                console.error('❌ 保存帖子失败:', error);
+                throw error;
+            }
+        }
+
+        // 🔥 更新帖子投票到Firebase
+        async function updatePostVoteInFirebase(postId, newVotes, userVote) {
+            try {
+                console.log('🗳️ 更新投票...', postId);
+                
+                const postRef = doc(db, 'posts', postId);
+                await updateDoc(postRef, {
+                    votes: newVotes,
+                    // 注意：这里简化了用户投票逻辑，实际项目中需要更复杂的用户投票跟踪
+                });
+                
+                console.log('✅ 投票更新成功');
+                
+            } catch (error) {
+                console.error('❌ 更新投票失败:', error);
+            }
+        }
+
+        // 🔥 保存评论到Firebase
+        async function saveCommentToFirebase(postId, commentData) {
+            try {
+                console.log('💬 保存评论到Firebase...', postId);
+                
+                const docRef = await addDoc(collection(db, 'comments'), {
+                    postId: postId,
+                    ...commentData,
+                    timestamp: serverTimestamp()
+                });
+                
+                console.log('✅ 评论保存成功，ID:', docRef.id);
+                return docRef.id;
+                
+            } catch (error) {
+                console.error('❌ 保存评论失败:', error);
+                throw error;
+            }
+        }
+
+        // 🔥 从Firebase加载评论
+        async function loadCommentsFromFirebase(postId) {
+            try {
+                console.log('📥 加载评论...', postId);
+                
+                const commentsQuery = query(
+                    collection(db, 'comments'),
+                    orderBy('timestamp', 'desc')
+                );
+                
+                const querySnapshot = await getDocs(commentsQuery);
+                const postComments = [];
+                
+                querySnapshot.forEach((doc) => {
+                    const commentData = doc.data();
+                    if (commentData.postId === postId) {
+                        postComments.push({
+                            id: doc.id,
+                            ...commentData,
+                            timestamp: commentData.timestamp?.toDate() || new Date()
+                        });
+                    }
+                });
+                
+                console.log(`✅ 加载 ${postComments.length} 个评论`);
+                return postComments;
+                
+            } catch (error) {
+                console.error('❌ 加载评论失败:', error);
+                return [];
+            }
+        }
+
+        // 🎨 UI相关函数
+        function setupEventListeners() {
+            // 📷 照片上传功能
+            document.getElementById('photoInput').addEventListener('change', handlePhotoUpload);
+            
+            // 🖱️ 拖拽功能
+            const uploadArea = document.querySelector('.upload-area');
+            uploadArea.addEventListener('dragover', handleDragOver);
+            uploadArea.addEventListener('dragleave', handleDragLeave);
+            uploadArea.addEventListener('drop', handleDrop);
+            
+            // 🏷️ 标签输入
+            document.getElementById('tagInput').addEventListener('keypress', handleTagInput);
+            
+            // 📝 表单提交
+            document.getElementById('postForm').addEventListener('submit', handlePostSubmit);
+            document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            
+            // 🖱️ 点击外部关闭模态框
+            window.onclick = handleWindowClick;
+        }
+
+        // 🏠 导航函数
+        function showHomePage() {
+            showPostsList();
+        }
+
+        function showWelcomeMessage() {
+            document.getElementById('welcomeMessage').style.display = 'block';
+            document.getElementById('postControls').style.display = 'none';
+            document.getElementById('postsContainer').innerHTML = '';
+        }
+
+        function showPostsList() {
+            document.getElementById('welcomeMessage').style.display = 'none';
+            document.getElementById('postControls').style.display = 'flex';
+            renderPosts();
+        }
+
+        // 📱 帖子渲染函数
+        function renderPosts() {
+            const container = document.getElementById('postsContainer');
+            
+            showLoading(true);
+            
+            setTimeout(() => {
+                if (posts.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-emoji">🐱</div>
+                            <div class="empty-title">No cat taxes paid yet!</div>
+                            <div class="empty-description">Be the first to share your adorable cat with the community.</div>
                         </div>
                     `;
-                    container.appendChild(catCard);
+                    return;
+                }
+
+                const sortedPosts = sortPostsArray([...posts], currentSortMode);
+                
+                container.innerHTML = '';
+                sortedPosts.forEach(post => {
+                    const postElement = createPostElement(post);
+                    container.appendChild(postElement);
                 });
+                
+                showLoading(false);
+            }, 500);
+        }
+
+        function createPostElement(post) {
+            const postDiv = document.createElement('div');
+            postDiv.className = 'post-card';
+            postDiv.onclick = () => openPostDetail(post.id);
+            
+            postDiv.innerHTML = `
+                <div class="post-header">
+                    <img src="${post.author.avatar}" alt="${post.author.name}" class="post-author-avatar">
+                    <div class="post-author-info">
+                        <div class="post-author-name">${post.author.name}</div>
+                        <div class="post-timestamp">${formatTimeAgo(post.timestamp)}</div>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <div class="post-votes">
+                        <button class="vote-btn ${post.userVote === 1 ? 'upvoted' : ''}" onclick="event.stopPropagation(); votePost('${post.id}', 1)">▲</button>
+                        <div class="vote-score">${post.votes}</div>
+                        <button class="vote-btn ${post.userVote === -1 ? 'downvoted' : ''}" onclick="event.stopPropagation(); votePost('${post.id}', -1)">▼</button>
+                    </div>
+                    <div class="post-main">
+                        <h3 class="post-title">${post.title}</h3>
+                        <p class="post-description">${post.description}</p>
+                        ${post.image ? `
+                            <div class="post-image-container">
+                                <img src="${post.image}" alt="Cat photo" class="post-image">
+                                <div class="post-image-overlay">Click to view full size</div>
+                            </div>
+                        ` : ''}
+                        <div class="post-tags">
+                            ${post.tags.map(tag => `<span class="post-tag" onclick="event.stopPropagation(); filterByTag('${tag}')">#${tag}</span>`).join('')}
+                        </div>
+                        <div class="post-actions">
+                            <button class="action-btn" onclick="event.stopPropagation(); openPostDetail('${post.id}')">
+                                💬 ${post.commentCount} Comments
+                            </button>
+                            <button class="action-btn" onclick="event.stopPropagation(); sharePost('${post.id}')">
+                                📤 Share
+                            </button>
+                            <button class="action-btn" onclick="event.stopPropagation(); savePost('${post.id}')">
+                                🔖 Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return postDiv;
+        }
+
+        // 📄 帖子详情函数
+        async function openPostDetail(postId) {
+            currentPostId = postId;
+            const post = posts.find(p => p.id === postId);
+            if (!post) return;
+
+            const modal = document.getElementById('postDetailModal');
+            const content = document.getElementById('postDetailContent');
+            
+            content.innerHTML = `
+                <div class="post-detail-header" style="background: none; padding: 0; margin-bottom: 1.5rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <img src="${post.author.avatar}" alt="${post.author.name}" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #ffeb3b;">
+                        <div>
+                            <div style="font-weight: bold; color: #2e7d32;">${post.author.name}</div>
+                            <div style="color: #81c784; font-size: 0.9rem;">${formatTimeAgo(post.timestamp)}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                ${post.image ? `<img src="${post.image}" alt="Cat photo" class="post-detail-image">` : ''}
+                
+                <h2 class="post-detail-title">${post.title}</h2>
+                <p class="post-detail-description">${post.description}</p>
+                
+                <div class="post-tags">
+                    ${post.tags.map(tag => `<span class="post-tag">#${tag}</span>`).join('')}
+                </div>
+                
+                <div class="post-detail-votes">
+                    <button class="detail-vote-btn ${post.userVote === 1 ? 'upvoted' : ''}" onclick="votePost('${post.id}', 1)">
+                        ▲ Upvote
+                    </button>
+                    <span class="detail-vote-score">${post.votes} votes</span>
+                    <button class="detail-vote-btn downvote ${post.userVote === -1 ? 'downvoted' : ''}" onclick="votePost('${post.id}', -1)">
+                        ▼ Downvote
+                    </button>
+                </div>
+            `;
+            
+            // 🔥 从Firebase加载评论
+            await loadCommentsForPost(postId);
+            
+            if (isLoggedIn) {
+                document.getElementById('commentForm').style.display = 'block';
+                document.getElementById('commentLoginPrompt').style.display = 'none';
+            } else {
+                document.getElementById('commentForm').style.display = 'none';
+                document.getElementById('commentLoginPrompt').style.display = 'block';
             }
+            
+            modal.style.display = 'block';
         }
 
-        function loadStatsData() {
-            // Calculate days as member
-            if (currentUser && currentUser.joinDate) {
-                const joinDate = new Date(currentUser.joinDate);
-                const today = new Date();
-                const diffTime = Math.abs(today - joinDate);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                document.getElementById('memberSince').textContent = diffDays;
+        function closePostDetail() {
+            document.getElementById('postDetailModal').style.display = 'none';
+            currentPostId = null;
+        }
+
+        // 🔥 加载指定帖子的评论
+        async function loadCommentsForPost(postId) {
+            const postComments = await loadCommentsFromFirebase(postId);
+            const post = posts.find(p => p.id === postId);
+            
+            if (post) {
+                post.commentCount = postComments.length;
+                document.getElementById('commentCount').textContent = postComments.length;
             }
-
-            // Update cat count
-            document.getElementById('totalCats').textContent = userCats.length;
+            
+            displayComments(postComments);
         }
 
-        function toggleUserDropdown() {
-            const dropdown = document.getElementById('userDropdown');
-            dropdown.classList.toggle('show');
+        function displayComments(postComments) {
+            const commentsList = document.getElementById('commentsList');
+            
+            if (postComments.length === 0) {
+                commentsList.innerHTML = `
+                    <div class="empty-state" style="padding: 2rem;">
+                        <div class="empty-emoji">💬</div>
+                        <div class="empty-title">No comments yet</div>
+                        <div class="empty-description">Be the first to share your thoughts!</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            commentsList.innerHTML = '';
+            postComments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment';
+                commentElement.innerHTML = `
+                    <div class="comment-header">
+                        <span class="comment-author">${comment.author}</span>
+                        <span class="comment-time">${formatTimeAgo(comment.timestamp)}</span>
+                    </div>
+                    <div class="comment-content">${comment.content}</div>
+                `;
+                commentsList.appendChild(commentElement);
+            });
         }
 
-        function handleLogout() {
-            isLoggedIn = false;
-            clearUserData(); // 清除保存的数据
-            toggleUserState();
-            closeUserCenter();
-            alert('You have been logged out successfully! 👋');
-        }
-
-        // Avatar upload in user center
-        document.getElementById('newAvatarInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const avatarUrl = e.target.result;
-                    
-                    // Update user center avatar
-                    document.getElementById('currentAvatarImg').src = avatarUrl;
-                    document.getElementById('currentAvatarImg').style.display = 'block';
-                    document.getElementById('avatarPlaceholder').style.display = 'none';
-                    
-                    // Update navigation avatar
-                    document.getElementById('userAvatar').src = avatarUrl;
-                    
-                    // Save to user data
-                    if (currentUser) {
-                        currentUser.avatar = avatarUrl;
-                        saveUserData(); // 保存到本地存储
-                    }
+        // 🔥 提交评论
+        async function submitComment() {
+            if (!isLoggedIn) {
+                alert('Please login to comment!');
+                return;
+            }
+            
+            const textarea = document.querySelector('.comment-textarea');
+            const content = textarea.value.trim();
+            
+            if (!content) {
+                alert('Please enter a comment!');
+                return;
+            }
+            
+            if (!currentPostId) return;
+            
+            try {
+                const newComment = {
+                    author: currentUser?.name || 'Anonymous',
+                    content: content
                 };
-                reader.readAsDataURL(file);
+                
+                // 🔥 保存评论到Firebase
+                await saveCommentToFirebase(currentPostId, newComment);
+                
+                // 🔄 重新加载评论
+                await loadCommentsForPost(currentPostId);
+                
+                // 🧹 清空表单
+                textarea.value = '';
+                
+                // 🔄 更新主页面的帖子显示
+                renderPosts();
+                
+                alert('Comment added successfully! 💬');
+                
+            } catch (error) {
+                console.error('❌ 提交评论失败:', error);
+                alert('Failed to add comment. Please try again.');
             }
-        });
+        }
 
-        // Profile update form
-        document.getElementById('profileUpdateForm').addEventListener('submit', function(e) {
+        // 🗳️ 投票函数
+        async function votePost(postId, voteType) {
+            if (!isLoggedIn) {
+                alert('Please login to vote! 🔐');
+                return;
+            }
+            
+            const post = posts.find(p => p.id === postId);
+            if (!post) return;
+            
+            const oldVote = post.userVote;
+            
+            // 移除旧投票
+            if (oldVote === 1) post.votes--;
+            if (oldVote === -1) post.votes++;
+            
+            // 应用新投票
+            if (oldVote === voteType) {
+                post.userVote = 0;
+            } else {
+                post.userVote = voteType;
+                if (voteType === 1) post.votes++;
+                if (voteType === -1) post.votes--;
+            }
+            
+            // 🔥 更新Firebase
+            await updatePostVoteInFirebase(postId, post.votes, post.userVote);
+            
+            // 🔄 重新渲染
+            renderPosts();
+            if (currentPostId === postId) {
+                openPostDetail(postId);
+            }
+        }
+
+        // 📝 帖子创建函数
+        async function handlePostSubmit(e) {
             e.preventDefault();
             
-            if (currentUser) {
-                currentUser.name = document.getElementById('profileName').value;
-                currentUser.occupation = document.getElementById('profileOccupation').value;
-                currentUser.adoptionDate = document.getElementById('profileAdoptionDate').value;
-                
-                saveUserData(); // 保存到本地存储
-                alert('Profile updated successfully! 💾');
+            const formData = new FormData(e.target);
+            const postData = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                tags: selectedTags,
+                photo: formData.get('photo')
+            };
+
+            if (!postData.photo || postData.photo.size === 0) {
+                alert('Please upload a photo of your cat! 📸');
+                return;
             }
-        });
+
+            try {
+                // 📸 处理图片（简化版本 - 实际项目中需要上传到云存储）
+                const imageUrl = URL.createObjectURL(postData.photo);
+                
+                const newPost = {
+                    title: postData.title,
+                    description: postData.description,
+                    image: imageUrl, // 注意：这只是临时URL，实际项目需要上传到云存储
+                    author: {
+                        name: currentUser?.name || 'Anonymous',
+                        avatar: currentUser?.avatar || 'https://via.placeholder.com/40x40/4caf50/ffffff?text=U'
+                    },
+                    votes: 1,
+                    userVote: 1,
+                    commentCount: 0,
+                    tags: postData.tags
+                };
+
+                // 🔥 保存到Firebase
+                const postId = await savePostToFirebase(newPost);
+                
+                // 📱 添加到本地数组（包含Firebase ID）
+                newPost.id = postId;
+                newPost.timestamp = new Date();
+                posts.unshift(newPost);
+                
+                alert(`Cat tax shared successfully! 🎉\n\nTitle: ${postData.title}`);
+                closePostModal();
+                showPostsList();
+                
+            } catch (error) {
+                console.error('❌ 发布帖子失败:', error);
+                alert('Failed to share your cat tax. Please try again.');
+            }
+        }
+
+        // 👤 用户注册函数
+        async function handleRegistration(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const userData = {
+                name: formData.get('ownerName'),
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+
+            // 🔐 简化的注册逻辑（实际项目需要Firebase Auth）
+            currentUser = {
+                name: userData.name,
+                email: userData.email,
+                avatar: 'https://via.placeholder.com/40x40/4caf50/ffffff?text=' + userData.name.charAt(0),
+                joinDate: new Date().toISOString()
+            };
+
+            isLoggedIn = true;
+            toggleUserState();
+            closeRegisterModal();
+            showPostsList();
+            
+            alert(`Welcome to CatTax, ${userData.name}! 🎉`);
+        }
+
+        // 🔑 用户登录函数
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const loginData = {
+                email: formData.get('loginEmail'),
+                password: formData.get('loginPassword')
+            };
+
+            // 🔐 简化的登录逻辑（实际项目需要Firebase Auth）
+            currentUser = {
+                name: 'Demo User',
+                email: loginData.email,
+                avatar: 'https://via.placeholder.com/40x40/4caf50/ffffff?text=D',
+                joinDate: '2024-01-01'
+            };
+
+            isLoggedIn = true;
+            toggleUserState();
+            closeLoginModal();
+            showPostsList();
+            
+            alert(`Welcome back! 🎉`);
+        }
+
+        // 🔄 工具函数
+        function showLoading(show) {
+            const container = document.getElementById('postsContainer');
+            if (show) {
+                container.innerHTML = '<div class="loading"><div class="loading-spinner"></div><p>Loading adorable cats...</p></div>';
+            }
+        }
+
+        function sortPosts(mode) {
+            currentSortMode = mode;
+            
+            document.querySelectorAll('.sort-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderPosts();
+        }
+
+        function sortPostsArray(postsArray, mode) {
+            switch (mode) {
+                case 'hot':
+                    return postsArray.sort((a, b) => {
+                        const aScore = a.votes + (a.commentCount * 2);
+                        const bScore = b.votes + (b.commentCount * 2);
+                        return bScore - aScore;
+                    });
+                case 'new':
+                    return postsArray.sort((a, b) => b.timestamp - a.timestamp);
+                case 'top':
+                    return postsArray.sort((a, b) => b.votes - a.votes);
+                case 'rising':
+                    return postsArray.sort((a, b) => {
+                        const aRising = a.votes / Math.max(1, (Date.now() - a.timestamp) / (1000 * 60 * 60));
+                        const bRising = b.votes / Math.max(1, (Date.now() - b.timestamp) / (1000 * 60 * 60));
+                        return bRising - aRising;
+                    });
+                default:
+                    return postsArray;
+            }
+        }
+
+        // 🏷️ 过滤函数
+        function filterByTag(tag) {
+            alert(`Filtering by tag: #${tag} 🏷️\n(This would filter posts in a real implementation)`);
+        }
+
+        // 🕐 时间格式化函数
+        function formatTimeAgo(timestamp) {
+            const now = new Date();
+            const diff = now - timestamp;
+            const minutes = Math.floor(diff / (1000 * 60));
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            if (minutes < 60) {
+                return `${minutes}m ago`;
+            } else if (hours < 24) {
+                return `${hours}h ago`;
+            } else {
+                return `${days}d ago`;
+            }
+        }
+
+        function sharePost(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (post) {
+                navigator.clipboard.writeText(`Check out this adorable cat: ${post.title}`)
+                    .then(() => alert('Post link copied to clipboard! 📋'))
+                    .catch(() => alert('Share: ' + post.title));
+            }
+        }
+
+        function savePost(postId) {
+            if (!isLoggedIn) {
+                alert('Please login to save posts! 🔐');
+                return;
+            }
+            alert('Post saved to your collection! 🔖');
+        }
+
+        // 🚀 帖子创建相关函数
+        function handleGetStarted() {
+            if (isLoggedIn) {
+                showPostsList();
+                openPostModal();
+            } else {
+                openLoginModal();
+            }
+        }
+
+        function handleCreatePost() {
+            if (isLoggedIn) {
+                openPostModal();
+            } else {
+                alert('Please login to create a post! 🔐');
+                openLoginModal();
+            }
+        }
+
         function openPostModal() {
             document.getElementById('postModal').style.display = 'block';
         }
 
         function closePostModal() {
             document.getElementById('postModal').style.display = 'none';
-            // Reset form
             document.getElementById('postForm').reset();
             document.getElementById('imagePreview').style.display = 'none';
             selectedTags = [];
             renderTags();
         }
 
-        // Login Modal Functions
-        function openLoginModal() {
-            document.getElementById('loginModal').style.display = 'block';
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').style.display = 'none';
-        }
-
-        // Registration Modal Functions
-        function openRegisterModal() {
-            document.getElementById('registerModal').style.display = 'block';
-        }
-
-        function closeRegisterModal() {
-            document.getElementById('registerModal').style.display = 'none';
-        }
-
-        // Add another cat profile
-        function addCatProfile() {
-            catCount++;
-            const catProfiles = document.getElementById('catProfiles');
-            const newCatProfile = document.createElement('div');
-            newCatProfile.className = 'cat-profile';
-            newCatProfile.innerHTML = `
-                <button type="button" class="remove-cat-btn" onclick="removeCatProfile(this)">Remove</button>
-                <h4 style="color: #4caf50; margin-bottom: 1rem;">Cat #${catCount}</h4>
-                <div class="form-group">
-                    <label class="form-label">Cat's Name</label>
-                    <input type="text" class="form-input" name="catName[]" placeholder="Enter your cat's name" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Cat's Birthday</label>
-                    <input type="date" class="form-input" name="catBirthday[]" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Cat's Breed</label>
-                    <select class="form-select" name="catBreed[]" required>
-                        <option value="">Select a breed</option>
-                        <option value="persian">Persian</option>
-                        <option value="siamese">Siamese</option>
-                        <option value="maine-coon">Maine Coon</option>
-                        <option value="british-shorthair">British Shorthair</option>
-                        <option value="ragdoll">Ragdoll</option>
-                        <option value="bengal">Bengal</option>
-                        <option value="abyssinian">Abyssinian</option>
-                        <option value="russian-blue">Russian Blue</option>
-                        <option value="scottish-fold">Scottish Fold</option>
-                        <option value="mixed">Mixed Breed</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Cat's Gender</label>
-                    <select class="form-select" name="catGender[]" required>
-                        <option value="">Select gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Spayed/Neutered</label>
-                    <select class="form-select" name="catNeutered[]" required>
-                        <option value="">Select status</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                </div>
-            `;
-            catProfiles.appendChild(newCatProfile);
-        }
-
-        // Remove cat profile
-        function removeCatProfile(button) {
-            button.parentElement.remove();
-        }
-
-        // Handle form submission
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Collect form data
-            const formData = new FormData(this);
-            const registrationData = {
-                cats: [],
-                owner: {}
-            };
-
-            // Collect cat data
-            const catNames = formData.getAll('catName[]');
-            const catBirthdays = formData.getAll('catBirthday[]');
-            const catBreeds = formData.getAll('catBreed[]');
-            const catGenders = formData.getAll('catGender[]');
-            const catNeutered = formData.getAll('catNeutered[]');
-
-            for (let i = 0; i < catNames.length; i++) {
-                registrationData.cats.push({
-                    name: catNames[i],
-                    birthday: catBirthdays[i],
-                    breed: catBreeds[i],
-                    gender: catGenders[i],
-                    neutered: catNeutered[i]
-                });
-            }
-
-            // Collect owner data
-            registrationData.owner = {
-                name: formData.get('ownerName'),
-                adoptionDate: formData.get('adoptionDate'),
-                occupation: formData.get('occupation'),
-                email: formData.get('email'),
-                password: formData.get('password'),
-                avatar: formData.get('avatar')
-            };
-
-            // For demo purposes, show the collected data
-            console.log('Registration Data:', registrationData);
-            alert(`Welcome to CatTax, ${registrationData.owner.name}! 🎉\n\nYou've registered ${registrationData.cats.length} cat(s):\n${registrationData.cats.map(cat => `• ${cat.name} (${cat.breed})`).join('\n')}`);
-            
-            // Save user data
-            currentUser = {
-                name: registrationData.owner.name,
-                email: registrationData.owner.email,
-                occupation: registrationData.owner.occupation,
-                adoptionDate: registrationData.owner.adoptionDate,
-                avatar: null,
-                joinDate: new Date().toISOString()
-            };
-            
-            userCats = registrationData.cats;
-
-            // 保存用户数据到本地存储
-            saveUserData();
-
-            // Auto login after registration
-            isLoggedIn = true;
-            
-            // Update user avatar if uploaded
-            const avatarFile = formData.get('avatar');
-            if (avatarFile && avatarFile.size > 0) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const avatarUrl = e.target.result;
-                    document.getElementById('userAvatar').src = avatarUrl;
-                    currentUser.avatar = avatarUrl;
-                };
-                reader.readAsDataURL(avatarFile);
-            }
-            
-            toggleUserState();
-            closeRegisterModal();
-        });
-
-        // Handle login form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const loginData = {
-                email: formData.get('loginEmail'),
-                password: formData.get('loginPassword'),
-                rememberMe: formData.get('rememberMe') === 'on'
-            };
-
-            // For demo purposes, show the collected data
-            console.log('Login Data:', loginData);
-            
-            // Simulate successful login
-            if (loginData.email && loginData.password) {
-                alert(`Welcome back! 🎉\n\nLogged in as: ${loginData.email}\nRemember me: ${loginData.rememberMe ? 'Yes' : 'No'}`);
-                
-                // Mock user data for demo (in real app, this would come from server)
-                currentUser = {
-                    name: 'Demo User',
-                    email: loginData.email,
-                    occupation: 'Cat Lover',
-                    adoptionDate: '2023-01-01',
-                    avatar: null,
-                    joinDate: '2024-01-01'
-                };
-                
-                userCats = [
-                    {
-                        name: 'Whiskers',
-                        breed: 'Mixed',
-                        gender: 'Male',
-                        birthday: '2022-03-15',
-                        neutered: 'Yes'
-                    }
-                ];
-                
-                // Switch to logged-in state
-                isLoggedIn = true;
-                saveUserData(); // 保存登录状态
-                toggleUserState();
-                closeLoginModal();
-            }
-        });
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const loginModal = document.getElementById('loginModal');
-            const registerModal = document.getElementById('registerModal');
-            const postModal = document.getElementById('postModal');
-            const userCenterModal = document.getElementById('userCenterModal');
-            const userDropdown = document.getElementById('userDropdown');
-            
-            if (event.target == loginModal) {
-                closeLoginModal();
-            }
-            if (event.target == registerModal) {
-                closeRegisterModal();
-            }
-            if (event.target == postModal) {
-                closePostModal();
-            }
-            if (event.target == userCenterModal) {
-                closeUserCenter();
-            }
-            if (!event.target.matches('.user-avatar') && !userDropdown.contains(event.target)) {
-                userDropdown.classList.remove('show');
-            }
-        }
-
-        // Photo upload functionality
-        document.getElementById('photoInput').addEventListener('change', function(e) {
+        // 📷 照片上传处理
+        function handlePhotoUpload(e) {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -2108,38 +2614,35 @@
                 };
                 reader.readAsDataURL(file);
             }
-        });
+        }
 
-        // Drag and drop functionality
-        const uploadArea = document.querySelector('.upload-area');
-        uploadArea.addEventListener('dragover', function(e) {
+        function handleDragOver(e) {
             e.preventDefault();
-            uploadArea.classList.add('dragover');
-        });
+            e.currentTarget.classList.add('dragover');
+        }
 
-        uploadArea.addEventListener('dragleave', function(e) {
+        function handleDragLeave(e) {
             e.preventDefault();
-            uploadArea.classList.remove('dragover');
-        });
+            e.currentTarget.classList.remove('dragover');
+        }
 
-        uploadArea.addEventListener('drop', function(e) {
+        function handleDrop(e) {
             e.preventDefault();
-            uploadArea.classList.remove('dragover');
+            e.currentTarget.classList.remove('dragover');
             const files = e.dataTransfer.files;
             if (files.length > 0 && files[0].type.startsWith('image/')) {
                 document.getElementById('photoInput').files = files;
                 document.getElementById('photoInput').dispatchEvent(new Event('change'));
             }
-        });
+        }
 
-        // Tags functionality
+        // 🏷️ 标签功能
         function renderTags() {
             const container = document.getElementById('tagsContainer');
             const tagInput = document.getElementById('tagInput');
             
             container.innerHTML = '';
             
-            // Render existing tags
             selectedTags.forEach((tag, index) => {
                 const tagElement = document.createElement('span');
                 tagElement.className = 'tag';
@@ -2147,7 +2650,6 @@
                 container.appendChild(tagElement);
             });
             
-            // Add input back
             container.appendChild(tagInput);
         }
 
@@ -2169,100 +2671,123 @@
             addTag(tag);
         }
 
-        // Tag input event listener
-        document.getElementById('tagInput').addEventListener('keypress', function(e) {
+        function handleTagInput(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                addTag(this.value);
-            }
-        });
-
-        // Handle post form submission
-        document.getElementById('postForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const postData = {
-                title: formData.get('title'),
-                description: formData.get('description'),
-                tags: selectedTags,
-                photo: formData.get('photo')
-            };
-
-            // For demo purposes, show the collected data
-            console.log('Post Data:', postData);
-            alert(`Cat tax shared successfully! 🎉\n\nTitle: ${postData.title}\nDescription: ${postData.description.substring(0, 50)}${postData.description.length > 50 ? '...' : ''}\nTags: ${postData.tags.join(', ')}\nPhoto: ${postData.photo ? postData.photo.name : 'No photo'}`);
-            
-            closePostModal();
-        });
-
-        // Avatar upload functionality for registration
-        document.getElementById('avatarInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('avatarPreview');
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    
-                    // Update the user avatar in navigation when logged in
-                    if (isLoggedIn) {
-                        document.getElementById('userAvatar').src = e.target.result;
-                    }
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Simple JavaScript for interaction
-        function handleGetStarted() {
-            if (isLoggedIn) {
-                openPostModal();
-            } else {
-                alert('Please login or register first to share your cat tax! 🐱');
-                openLoginModal();
+                addTag(e.target.value);
             }
         }
 
-        // Toggle between login/register and user avatar
+        // 📱 模态框函数
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function openRegisterModal() {
+            document.getElementById('registerModal').style.display = 'block';
+        }
+
+        function closeRegisterModal() {
+            document.getElementById('registerModal').style.display = 'none';
+        }
+
+        function handleWindowClick(event) {
+            const modals = [
+                'loginModal', 'registerModal', 'postModal', 'postDetailModal'
+            ];
+            
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // 关闭用户下拉菜单
+            const userDropdown = document.getElementById('userDropdown');
+            if (!event.target.matches('.user-avatar') && !userDropdown.contains(event.target)) {
+                userDropdown.classList.remove('show');
+            }
+        }
+
+        // 👤 用户相关函数
+        function toggleUserDropdown() {
+            document.getElementById('userDropdown').classList.toggle('show');
+        }
+
         function toggleUserState() {
             const authButtons = document.querySelector('.auth-buttons');
             const userAvatar = document.getElementById('userAvatar');
             const feedbackPrompt = document.getElementById('feedbackLoginPrompt');
             const feedbackForm = document.getElementById('feedbackForm');
             
-            if (authButtons.style.display === 'none') {
-                authButtons.style.display = 'flex';
-                userAvatar.style.display = 'none';
-                feedbackPrompt.style.display = 'block';
-                feedbackForm.style.display = 'none';
-                isLoggedIn = false;
-            } else {
+            if (isLoggedIn) {
                 authButtons.style.display = 'none';
                 userAvatar.style.display = 'block';
                 feedbackPrompt.style.display = 'none';
                 feedbackForm.style.display = 'block';
-                isLoggedIn = true;
+                if (currentUser?.avatar) {
+                    userAvatar.src = currentUser.avatar;
+                }
+            } else {
+                authButtons.style.display = 'flex';
+                userAvatar.style.display = 'none';
+                feedbackPrompt.style.display = 'block';
+                feedbackForm.style.display = 'none';
             }
         }
 
-        // Search functionality
+        function openUserCenter() {
+            alert('User Center would open here! 👤\n(This is a placeholder for the user center functionality)');
+        }
+
+        function handleLogout() {
+            isLoggedIn = false;
+            currentUser = null;
+            toggleUserState();
+            showWelcomeMessage();
+            alert('You have been logged out successfully! 👋');
+        }
+
+        // 🔍 搜索功能
         document.querySelector('.search-box').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                const searchTerm = e.target.value;
-                if (searchTerm.trim()) {
-                    alert(`Searching for: ${searchTerm} 🔍`);
+                const searchTerm = e.target.value.trim();
+                if (searchTerm) {
+                    alert(`Searching for: ${searchTerm} 🔍\n(Search functionality would be implemented here)`);
                 }
             }
         });
 
-        // Click to toggle user state for demo
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'u' || e.key === 'U') {
-                toggleUserState();
-            }
-        });
+        // 🎯 将函数暴露到全局作用域，以便HTML onclick事件可以使用
+        window.showHomePage = showHomePage;
+        window.openLoginModal = openLoginModal;
+        window.openRegisterModal = openRegisterModal;
+        window.closeLoginModal = closeLoginModal;
+        window.closeRegisterModal = closeRegisterModal;
+        window.handleGetStarted = handleGetStarted;
+        window.handleCreatePost = handleCreatePost;
+        window.openPostModal = openPostModal;
+        window.closePostModal = closePostModal;
+        window.sortPosts = sortPosts;
+        window.votePost = votePost;
+        window.openPostDetail = openPostDetail;
+        window.closePostDetail = closePostDetail;
+        window.submitComment = submitComment;
+        window.filterByTag = filterByTag;
+        window.sharePost = sharePost;
+        window.savePost = savePost;
+        window.toggleUserDropdown = toggleUserDropdown;
+        window.openUserCenter = openUserCenter;
+        window.handleLogout = handleLogout;
+        window.addSuggestedTag = addSuggestedTag;
+        window.removeTag = removeTag;
+
+        console.log('🎉 所有功能初始化完成！');
     </script>
 </body>
 </html>
