@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CatTax.space - Pay your cat tax!</title>
+    <!-- EmailJS 库 -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("your_emailjs_user_id"); // 替换为你的EmailJS用户ID
+       })();
+    </script>
     <style>
         * {
             margin: 0;
@@ -483,209 +490,6 @@
             border-bottom: none;
         }
 
-        /* Post Detail Modal */
-        .post-detail-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-        }
-
-        .post-detail-content {
-            background: white;
-            margin: 2% auto;
-            padding: 0;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .post-detail-header {
-            background: linear-gradient(45deg, #ffeb3b, #4caf50);
-            color: #2e7d32;
-            padding: 1.5rem;
-            border-radius: 20px 20px 0 0;
-            position: relative;
-        }
-
-        .post-detail-close {
-            position: absolute;
-            right: 1rem;
-            top: 1rem;
-            color: #2e7d32;
-            font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .post-detail-close:hover {
-            transform: scale(1.2);
-        }
-
-        .post-detail-body {
-            padding: 2rem;
-        }
-
-        .post-detail-image {
-            width: 100%;
-            max-height: 500px;
-            object-fit: contain;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-        }
-
-        .post-detail-title {
-            font-size: 1.5rem;
-            color: #2e7d32;
-            margin-bottom: 1rem;
-        }
-
-        .post-detail-description {
-            color: #4caf50;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .post-detail-votes {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: rgba(255, 235, 59, 0.1);
-            border-radius: 10px;
-        }
-
-        .detail-vote-btn {
-            background: linear-gradient(45deg, #4caf50, #8bc34a);
-            border: none;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .detail-vote-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-
-        .detail-vote-btn.downvote {
-            background: linear-gradient(45deg, #f44336, #ff5722);
-        }
-
-        .detail-vote-score {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #2e7d32;
-        }
-
-        /* Comments Section */
-        .comments-section {
-            border-top: 2px solid rgba(255, 235, 59, 0.3);
-            padding-top: 1.5rem;
-        }
-
-        .comments-title {
-            font-size: 1.2rem;
-            color: #2e7d32;
-            margin-bottom: 1rem;
-        }
-
-        .comment-form {
-            background: rgba(255, 235, 59, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
-        }
-
-        .comment-textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e8f5e8;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            background: white;
-            resize: vertical;
-            min-height: 80px;
-            font-family: 'Broadway', cursive, sans-serif;
-            margin-bottom: 1rem;
-        }
-
-        .comment-textarea:focus {
-            outline: none;
-            border-color: #4caf50;
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-        }
-
-        .comment-submit {
-            background: linear-gradient(45deg, #4caf50, #8bc34a);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: 'Broadway', cursive, sans-serif;
-        }
-
-        .comment-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-
-        .comments-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .comment {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 1rem;
-            border-radius: 10px;
-            border-left: 4px solid #ffeb3b;
-        }
-
-        .comment-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .comment-author {
-            font-weight: bold;
-            color: #2e7d32;
-            font-size: 0.9rem;
-        }
-
-        .comment-time {
-            color: #81c784;
-            font-size: 0.8rem;
-        }
-
-        .comment-content {
-            color: #4caf50;
-            line-height: 1.5;
-        }
-
         /* Welcome Message */
         .welcome-message {
             text-align: center;
@@ -770,25 +574,6 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-
-        /* Animations */
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-5deg); }
-            75% { transform: rotate(5deg); }
         }
 
         /* Registration Modal */
@@ -894,28 +679,6 @@
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
 
-        .cat-profile {
-            border-left: 4px solid #ffeb3b;
-            margin-bottom: 1rem;
-        }
-
-        .add-cat-btn {
-            background: linear-gradient(45deg, #4caf50, #8bc34a);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-        }
-
-        .add-cat-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-
         .submit-btn {
             background: linear-gradient(45deg, #ffeb3b, #ffc107);
             color: #2e7d32;
@@ -995,186 +758,6 @@
             margin: 0;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-                padding: 1rem;
-            }
-
-            .sidebar {
-                order: 2;
-                position: static;
-            }
-
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 0 1rem;
-            }
-
-            .search-container {
-                order: 3;
-                margin: 0;
-                max-width: 100%;
-            }
-
-            .post-controls {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: stretch;
-            }
-
-            .sort-tabs {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-
-            .post-content {
-                flex-direction: column;
-            }
-
-            .post-votes {
-                flex-direction: row;
-                justify-content: center;
-                min-width: auto;
-                padding: 0.5rem;
-            }
-
-            .post-detail-content {
-                width: 95%;
-                margin: 5% auto;
-            }
-
-            .post-detail-body {
-                padding: 1rem;
-            }
-
-            .modal-content {
-                width: 95%;
-                margin: 5% auto;
-            }
-
-            .modal-body {
-                padding: 1rem;
-            }
-        }
-
-        /* Post Form Styles (from previous code) */
-        .upload-area {
-            border: 3px dashed #ffeb3b;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            background: rgba(255, 235, 59, 0.1);
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .upload-area:hover {
-            border-color: #4caf50;
-            background: rgba(76, 175, 80, 0.1);
-        }
-
-        .upload-area.dragover {
-            border-color: #4caf50;
-            background: rgba(76, 175, 80, 0.2);
-            transform: scale(1.02);
-        }
-
-        .upload-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #ffeb3b;
-        }
-
-        .upload-text {
-            color: #2e7d32;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .upload-subtext {
-            color: #81c784;
-            font-size: 0.9rem;
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .image-preview {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .form-textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e8f5e8;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            background: white;
-            resize: vertical;
-            min-height: 100px;
-            font-family: 'Broadway', cursive, sans-serif;
-        }
-
-        .form-textarea:focus {
-            outline: none;
-            border-color: #4caf50;
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-        }
-
-        .tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-            padding: 0.5rem;
-            border: 2px solid #e8f5e8;
-            border-radius: 10px;
-            background: white;
-            min-height: 45px;
-        }
-
-        .tag {
-            background: linear-gradient(45deg, #ffeb3b, #ffc107);
-            color: #2e7d32;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .tag-remove {
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .tag-remove:hover {
-            color: #ff5722;
-        }
-
-        .tag-input {
-            border: none;
-            outline: none;
-            background: transparent;
-            font-size: 1rem;
-            flex: 1;
-            min-width: 100px;
-            font-family: 'Broadway', cursive, sans-serif;
-        }
-
         .suggested-tags {
             display: flex;
             flex-wrap: wrap;
@@ -1195,20 +778,6 @@
         .suggested-tag:hover {
             background: #4caf50;
             color: white;
-        }
-
-        .post-btn {
-            background: linear-gradient(45deg, #ffeb3b, #ffc107);
-            color: #2e7d32;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 15px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: bold;
-            width: 100%;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
 
         /* Story Section */
@@ -1423,8 +992,113 @@
             margin-right: 0.5rem;
         }
 
-        /* Responsive Design for Story and Feedback Sections */
+        /* 反馈系统新增样式 */
+        .feedback-alert {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Decorative elements */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ffeb3b;
+            font-size: 1.5rem;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .heart:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .heart:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .heart:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .heart:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .heart:nth-child(7) { left: 70%; animation-delay: 0.5s; }
+        .heart:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .heart:nth-child(9) { left: 90%; animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .sidebar {
+                order: 2;
+                position: static;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .search-container {
+                order: 3;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .post-controls {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .sort-tabs {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .post-content {
+                flex-direction: column;
+            }
+
+            .post-votes {
+                flex-direction: row;
+                justify-content: center;
+                min-width: auto;
+                padding: 0.5rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
             .story-section {
                 padding: 2rem 1rem;
             }
@@ -1468,6 +1142,21 @@
     </style>
 </head>
 <body>
+    <!-- Floating decorative elements -->
+    <div class="floating-hearts">
+        <div class="heart">🐾</div>
+        <div class="heart">💛</div>
+        <div class="heart">🐾</div>
+        <div class="heart">💚</div>
+        <div class="heart">🐾</div>
+        <div class="heart">😸</div>
+        <div class="heart">🐾</div>
+        <div class="heart">😺</div>
+        <div class="heart">🐾</div>
+        <div class="heart">💛</div>
+        <div class="heart">😻</div>
+    </div>
+
     <!-- Header/Navigation -->
     <header class="header">
         <nav class="nav-container">
@@ -1672,107 +1361,6 @@
         </div>
     </section>
 
-    <!-- Post Detail Modal -->
-    <div id="postDetailModal" class="post-detail-modal">
-        <div class="post-detail-content">
-            <div class="post-detail-header">
-                <h2 class="modal-title">📸 Cat Tax Details 🐾</h2>
-                <span class="post-detail-close" onclick="closePostDetail()">&times;</span>
-            </div>
-            <div class="post-detail-body">
-                <div id="postDetailContent">
-                    <!-- Post content will be inserted here -->
-                </div>
-                
-                <!-- Comments Section -->
-                <div class="comments-section">
-                    <h3 class="comments-title">💬 Comments (<span id="commentCount">0</span>)</h3>
-                    
-                    <!-- Comment Form -->
-                    <div class="comment-form" id="commentForm" style="display: none;">
-                        <textarea class="comment-textarea" placeholder="Share your thoughts about this adorable cat..." maxlength="500"></textarea>
-                        <button class="comment-submit" onclick="submitComment()">💬 Add Comment</button>
-                    </div>
-                    
-                    <!-- Login prompt for comments -->
-                    <div class="comment-form" id="commentLoginPrompt">
-                        <p style="text-align: center; color: #4caf50; margin-bottom: 1rem;">
-                            Please login to leave a comment! 🐱
-                        </p>
-                        <button class="comment-submit" onclick="openLoginModal()" style="background: linear-gradient(45deg, #ffeb3b, #ffc107); color: #2e7d32;">
-                            🔑 Login to Comment
-                        </button>
-                    </div>
-                    
-                    <!-- Comments List -->
-                    <div class="comments-list" id="commentsList">
-                        <!-- Comments will be inserted here -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Create Post Modal -->
-    <div id="postModal" class="modal">
-        <div class="modal-content" style="max-width: 700px;">
-            <div class="modal-header">
-                <h2 class="modal-title">📸 Share Your Cat Tax! 🐾</h2>
-                <span class="close" onclick="closePostModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="postForm">
-                    <!-- Photo Upload Section -->
-                    <div class="form-group">
-                        <label class="form-label">Upload Photo</label>
-                        <div class="upload-area" onclick="document.getElementById('photoInput').click()">
-                            <div class="upload-icon">📷</div>
-                            <div class="upload-text">Click to upload or drag & drop</div>
-                            <div class="upload-subtext">Support JPG, PNG, GIF (Max 10MB)</div>
-                        </div>
-                        <input type="file" id="photoInput" class="file-input" name="photo" accept="image/*" required>
-                        <img id="imagePreview" class="image-preview" alt="Preview">
-                    </div>
-
-                    <!-- Title and Description -->
-                    <div class="form-group">
-                        <label class="form-label">Title</label>
-                        <input type="text" class="form-input" name="title" placeholder="Give your post a catchy title!" required maxlength="100">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-textarea" name="description" placeholder="Tell us about your adorable cat! Share their story, personality, or just what makes them special..." maxlength="500"></textarea>
-                    </div>
-
-                    <!-- Tags Section -->
-                    <div class="form-group">
-                        <label class="form-label">Tags</label>
-                        <div class="tags-container" id="tagsContainer">
-                            <input type="text" class="tag-input" id="tagInput" placeholder="Add tags (press Enter)">
-                        </div>
-                        <div class="suggested-tags">
-                            <span class="suggested-tag" onclick="addSuggestedTag('cute')">cute</span>
-                            <span class="suggested-tag" onclick="addSuggestedTag('fluffy')">fluffy</span>
-                            <span class="suggested-tag" onclick="addSuggestedTag('playful')">playful</span>
-                            <span class="suggested-tag" onclick="addSuggestedTag('sleepy')">sleepy</span>
-                            <span class="suggested-tag" onclick="addSuggestedTag('kitten')">kitten</span>
-                            <span class="suggested-tag" onclick="addSuggestedTag('orange')">orange</span>
-                            <span class="suggested-tag" onclick="addSuggestedTag('black')">black</span>
-                            <span class="suggested-tag" onclick="addSuggestedTag('white')">white</span>
-                            <span class="suggested-tag" onclick="addSuggestedTag('tabby')">tabby</span>
-                            <span class="suggested-tag" onclick="addSuggestedTag('rescue')">rescue</span>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="post-btn">
-                        🎉 Share My Cat Tax!
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Registration Modal -->
     <div id="registerModal" class="modal">
         <div class="modal-content">
@@ -1833,58 +1421,6 @@
         </div>
     </div>
 
-    <!-- 🔥 Firebase SDK - 添加在 </body> 之前 -->
-    <script type="module">
-        // 🔥 导入Firebase模块
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-        import { 
-            getFirestore, 
-            collection, 
-            addDoc, 
-            getDocs, 
-            doc, 
-            updateDoc, 
-            query, 
-            orderBy,
-            onSnapshot,
-            serverTimestamp,
-            deleteDoc
-        } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-
-        // 🔥 您的Firebase配置 - 请替换为您的实际配置
-        const firebaseConfig = {
-            // ⚠️ 重要：请替换这些占位符为您的实际Firebase配置
-            apiKey: "AIzaSyDGY_FJPdY2Delktm7TVmk2ABFiG_B2IPQ",
-            authDomain: "cattax-website.firebaseapp.com",
-            projectId: "cattax-website",
-            storageBucket: "cattax-website.firebasestorage.app",
-            messagingSenderId: "181166498026",
-            appId:"1:181166498026:web:47e55636ec8f84d3cd3793",
-            measurementId: "G-5WVBLCGD9K"
-        };
-
-        // 🔥 初始化Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // 🌍 将Firebase函数暴露到全局作用域，以便HTML中的onclick事件可以使用
-        window.db = db;
-        window.firestoreFunctions = {
-            collection,
-            addDoc,
-            getDocs,
-            doc,
-            updateDoc,
-            query,
-            orderBy,
-            onSnapshot,
-            serverTimestamp,
-            deleteDoc
-        };
-
-        console.log('🎉 Firebase初始化成功！');
-    </script>
-
     <script>
         // 🌍 全局变量
         let selectedTags = [];
@@ -1895,14 +1431,8 @@
         let currentSortMode = 'hot';
         let currentPostId = null;
 
-        // 🔥 Firebase数据库引用
-        const { collection, addDoc, getDocs, doc, updateDoc, query, orderBy, onSnapshot, serverTimestamp } = window.firestoreFunctions;
-        const db = window.db;
-
-        // 📊 数据结构定义
-        // posts集合：存储所有帖子
-        // comments集合：存储所有评论  
-        // users集合：存储用户信息
+        // 📦 反馈系统 - 数据存储
+        let feedbackStorage = []; // 本地"记忆盒子"
 
         // 🚀 页面初始化
         document.addEventListener('DOMContentLoaded', function() {
@@ -1914,8 +1444,11 @@
         async function initializePage() {
             console.log('🔄 初始化页面...');
             
-            // 🔥 从Firebase加载数据
-            await loadPostsFromFirebase();
+            // 加载示例数据
+            loadSampleData();
+            
+            // 初始化反馈系统
+            initializeFeedbackSystem();
             
             // 🎨 显示内容
             if (isLoggedIn) {
@@ -1925,39 +1458,7 @@
             }
         }
 
-        // 🔥 从Firebase加载帖子
-        async function loadPostsFromFirebase() {
-            try {
-                console.log('📥 从Firebase加载帖子...');
-                showLoading(true);
-                
-                const postsQuery = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
-                const querySnapshot = await getDocs(postsQuery);
-                
-                posts = [];
-                querySnapshot.forEach((doc) => {
-                    const postData = doc.data();
-                    posts.push({
-                        id: doc.id,
-                        ...postData,
-                        timestamp: postData.timestamp?.toDate() || new Date()
-                    });
-                });
-                
-                console.log(`✅ 成功加载 ${posts.length} 个帖子`);
-                showLoading(false);
-                
-            } catch (error) {
-                console.error('❌ 加载帖子失败:', error);
-                showLoading(false);
-                
-                // 📝 如果Firebase加载失败，使用示例数据
-                console.log('🔄 使用示例数据...');
-                loadSampleData();
-            }
-        }
-
-        // 📝 加载示例数据（用于演示或Firebase失败时）
+        // 📝 加载示例数据
         function loadSampleData() {
             const samplePosts = [
                 {
@@ -1996,117 +1497,479 @@
             console.log('📝 示例数据加载完成');
         }
 
-        // 🔥 保存帖子到Firebase
-        async function savePostToFirebase(postData) {
-            try {
-                console.log('💾 保存帖子到Firebase...', postData.title);
+        // ========== 反馈系统开始 ==========
+        
+        // 💾 保存反馈到本地存储
+        function saveFeedback(feedbackData) {
+            feedbackData.id = 'feedback_' + Date.now();
+            feedbackData.timestamp = new Date();
+            feedbackData.user = isLoggedIn ? currentUser.name : '匿名用户';
+            
+            feedbackStorage.push(feedbackData);
+            
+            console.log('📝 新反馈已保存到本地：', feedbackData);
+            console.log('📊 总共收到反馈数量：', feedbackStorage.length);
+        }
+
+        // 📧 邮件发送功能 - 使用EmailJS
+        function sendFeedbackEmail(feedbackData) {
+            // EmailJS的配置信息
+            const emailConfig = {
+                serviceID: 'service_cattax',    // 你需要在EmailJS中创建
+                templateID: 'template_feedback', // 你需要在EmailJS中创建
+                userID: 'your_emailjs_user_id'   // 你的EmailJS用户ID
+            };
+            
+            // 准备邮件内容
+            const emailParams = {
+                to_email: 'cookiechen837@gmail.com',  // 你的邮箱
+                from_name: feedbackData.user,         // 发送者姓名
+                feedback_type: feedbackData.type,     // 反馈类型
+                feedback_message: feedbackData.message, // 反馈内容
+                submit_time: feedbackData.timestamp.toLocaleString(), // 提交时间
+                user_email: isLoggedIn ? currentUser.email : '未登录用户' // 用户邮箱
+            };
+            
+            console.log('📧 准备发送邮件，内容：', emailParams);
+            
+            // 发送邮件（模拟EmailJS调用）
+            return new Promise((resolve, reject) => {
+                // 这里模拟邮件发送过程
+                setTimeout(() => {
+                    console.log('📧 邮件发送成功！（模拟）');
+                    resolve('邮件发送成功');
+                }, 1000);
                 
-                const docRef = await addDoc(collection(db, 'posts'), {
-                    ...postData,
-                    timestamp: serverTimestamp()
-                });
+                // 实际的EmailJS代码（当你设置好EmailJS后取消注释）：
+                /*
+                emailjs.send(emailConfig.serviceID, emailConfig.templateID, emailParams, emailConfig.userID)
+                    .then(function(response) {
+                        console.log('📧 邮件发送成功！', response);
+                        resolve(response);
+                    }, function(error) {
+                        console.log('❌ 邮件发送失败：', error);
+                        reject(error);
+                    });
+                */
+            });
+        }
+
+        // ✅ 表单验证功能
+        function validateFeedbackForm(formData) {
+            let errors = [];
+            
+            if (!formData.type || formData.type === '') {
+                errors.push('请选择反馈类型');
+            }
+            
+            if (!formData.message || formData.message.trim() === '') {
+                errors.push('请填写反馈内容');
+            } else {
+                const messageLength = formData.message.trim().length;
                 
-                console.log('✅ 帖子保存成功，ID:', docRef.id);
-                return docRef.id;
+                if (messageLength < 10) {
+                    errors.push('反馈内容至少需要10个字符');
+                }
                 
-            } catch (error) {
-                console.error('❌ 保存帖子失败:', error);
-                throw error;
+                if (messageLength > 1000) {
+                    errors.push('反馈内容不能超过1000个字符');
+                }
+            }
+            
+            return {
+                isValid: errors.length === 0,
+                errors: errors
+            };
+        }
+
+        // 🎯 显示结果反馈
+        function showFeedbackResult(success, message) {
+            const feedbackForm = document.getElementById('feedbackForm');
+            
+            const existingAlert = feedbackForm.querySelector('.feedback-alert');
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+            
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'feedback-alert';
+            
+            if (success) {
+                alertDiv.style.cssText = `
+                    background: linear-gradient(45deg, #4caf50, #8bc34a);
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 10px;
+                    margin-bottom: 1rem;
+                    text-align: center;
+                    font-weight: bold;
+                    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+                `;
+                alertDiv.innerHTML = `🎉 ${message}`;
+            } else {
+                alertDiv.style.cssText = `
+                    background: linear-gradient(45deg, #f44336, #e57373);
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 10px;
+                    margin-bottom: 1rem;
+                    text-align: center;
+                    font-weight: bold;
+                    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+                `;
+                alertDiv.innerHTML = `❌ ${message}`;
+            }
+            
+            feedbackForm.insertBefore(alertDiv, feedbackForm.firstChild);
+            
+            setTimeout(() => {
+                if (alertDiv && alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 3000);
+        }
+
+        // 🔄 控制提交按钮状态
+        function setSubmitButtonState(isLoading) {
+            const submitBtn = document.querySelector('.feedback-submit');
+            
+            if (isLoading) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '⏳ 发送中...';
+                submitBtn.style.opacity = '0.7';
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '🚀 发送反馈';
+                submitBtn.style.opacity = '1';
             }
         }
 
-        // 🔥 更新帖子投票到Firebase
-        async function updatePostVoteInFirebase(postId, newVotes, userVote) {
+        // 📝 主要的提交处理函数
+        async function handleFeedbackSubmit(event) {
+            event.preventDefault();
+            
+            console.log('🚀 用户点击了提交按钮');
+            setSubmitButtonState(true);
+            
+            const formData = new FormData(event.target);
+            const feedbackData = {
+                type: formData.get('feedbackType'),
+                message: formData.get('feedbackMessage')
+            };
+            
+            console.log('📝 收集到的数据：', feedbackData);
+            
+            // 验证表单
+            const validation = validateFeedbackForm(feedbackData);
+            
+            if (!validation.isValid) {
+                console.log('❌ 表单验证失败：', validation.errors);
+                setSubmitButtonState(false);
+                showFeedbackResult(false, validation.errors.join('；'));
+                return;
+            }
+            
             try {
-                console.log('🗳️ 更新投票...', postId);
+                // 1. 先保存到本地（快速完成）
+                saveFeedback(feedbackData);
                 
-                const postRef = doc(db, 'posts', postId);
-                await updateDoc(postRef, {
-                    votes: newVotes,
-                    // 注意：这里简化了用户投票逻辑，实际项目中需要更复杂的用户投票跟踪
-                });
+                // 2. 然后发送邮件（可能较慢）
+                await sendFeedbackEmail(feedbackData);
                 
-                console.log('✅ 投票更新成功');
+                // 3. 全部成功后的处理
+                showFeedbackResult(true, '感谢您的反馈！我们已经收到并发送邮件通知了！📧');
+                event.target.reset(); // 清空表单
                 
-            } catch (error) {
-                console.error('❌ 更新投票失败:', error);
+                console.log('✅ 反馈提交完全成功（本地保存 + 邮件发送）');
+                
+            } catch (emailError) {
+                // 邮件发送失败，但本地已保存
+                console.log('⚠️ 邮件发送失败，但本地已保存：', emailError);
+                showFeedbackResult(true, '反馈已保存！邮件发送遇到问题，但您的建议我们已经收到了！');
+                event.target.reset();
+                
+            } finally {
+                setSubmitButtonState(false);
             }
         }
 
-        // 🔥 保存评论到Firebase
-        async function saveCommentToFirebase(postId, commentData) {
-            try {
-                console.log('💬 保存评论到Firebase...', postId);
+        // 🔧 字符计数器功能
+        function updateCharacterCount() {
+            const textarea = document.querySelector('textarea[name="feedbackMessage"]');
+            const maxLength = 1000;
+            
+            if (textarea) {
+                let countDisplay = document.getElementById('charCount');
+                if (!countDisplay) {
+                    countDisplay = document.createElement('div');
+                    countDisplay.id = 'charCount';
+                    countDisplay.style.cssText = `
+                        font-size: 0.8rem;
+                        color: #4caf50;
+                        text-align: right;
+                        margin-top: 0.5rem;
+                    `;
+                    textarea.parentNode.appendChild(countDisplay);
+                }
                 
-                const docRef = await addDoc(collection(db, 'comments'), {
-                    postId: postId,
-                    ...commentData,
-                    timestamp: serverTimestamp()
-                });
-                
-                console.log('✅ 评论保存成功，ID:', docRef.id);
-                return docRef.id;
-                
-            } catch (error) {
-                console.error('❌ 保存评论失败:', error);
-                throw error;
-            }
-        }
-
-        // 🔥 从Firebase加载评论
-        async function loadCommentsFromFirebase(postId) {
-            try {
-                console.log('📥 加载评论...', postId);
-                
-                const commentsQuery = query(
-                    collection(db, 'comments'),
-                    orderBy('timestamp', 'desc')
-                );
-                
-                const querySnapshot = await getDocs(commentsQuery);
-                const postComments = [];
-                
-                querySnapshot.forEach((doc) => {
-                    const commentData = doc.data();
-                    if (commentData.postId === postId) {
-                        postComments.push({
-                            id: doc.id,
-                            ...commentData,
-                            timestamp: commentData.timestamp?.toDate() || new Date()
-                        });
+                textarea.addEventListener('input', function() {
+                    const currentLength = this.value.length;
+                    countDisplay.textContent = `${currentLength}/${maxLength}`;
+                    
+                    if (currentLength > maxLength - 100) {
+                        countDisplay.style.color = '#f44336';
+                    } else {
+                        countDisplay.style.color = '#4caf50';
                     }
                 });
-                
-                console.log(`✅ 加载 ${postComments.length} 个评论`);
-                return postComments;
-                
-            } catch (error) {
-                console.error('❌ 加载评论失败:', error);
-                return [];
             }
         }
+
+        // 🔄 根据登录状态更新显示
+        function updateFeedbackSectionVisibility() {
+            const loginPrompt = document.getElementById('feedbackLoginPrompt');
+            const feedbackForm = document.getElementById('feedbackForm');
+            
+            if (isLoggedIn) {
+                loginPrompt.style.display = 'none';
+                feedbackForm.style.display = 'block';
+            } else {
+                loginPrompt.style.display = 'block';
+                feedbackForm.style.display = 'none';
+            }
+        }
+
+        // 👑 管理员功能 - 查看所有反馈
+        function showAdminPanel() {
+            // 检查是否为管理员访问
+            const password = prompt('🔐 请输入管理员密码：');
+            if (password !== 'cattax2024') { // 你可以修改这个密码
+                alert('❌ 密码错误！');
+                return;
+            }
+            
+            // 创建管理面板
+            const adminPanel = document.createElement('div');
+            adminPanel.id = 'adminPanel';
+            adminPanel.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                overflow-y: auto;
+                padding: 2rem;
+            `;
+            
+            adminPanel.innerHTML = `
+                <div style="
+                    background: white;
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 2rem;
+                    border-radius: 20px;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                ">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h2 style="color: #2e7d32; margin: 0;">📊 反馈管理中心</h2>
+                        <button onclick="closeAdminPanel()" style="
+                            background: #f44336;
+                            color: white;
+                            border: none;
+                            padding: 0.5rem 1rem;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        ">关闭</button>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <h3>📈 统计信息</h3>
+                        <p>总反馈数：<strong>${feedbackStorage.length}</strong></p>
+                        <button onclick="exportFeedback()" style="
+                            background: #4caf50;
+                            color: white;
+                            border: none;
+                            padding: 0.75rem 1.5rem;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            margin-right: 1rem;
+                        ">📥 导出所有反馈</button>
+                        <button onclick="clearAllFeedback()" style="
+                            background: #ff9800;
+                            color: white;
+                            border: none;
+                            padding: 0.75rem 1.5rem;
+                            border-radius: 10px;
+                            cursor: pointer;
+                        ">🗑️ 清空所有反馈</button>
+                    </div>
+                    
+                    <div>
+                        <h3>📝 反馈列表</h3>
+                        <div id="feedbackList">
+                            ${generateFeedbackList()}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(adminPanel);
+        }
+
+        // 生成反馈列表HTML
+        function generateFeedbackList() {
+            if (feedbackStorage.length === 0) {
+                return '<p style="color: #666;">暂无反馈数据</p>';
+            }
+            
+            return feedbackStorage.map((feedback, index) => `
+                <div style="
+                    border: 2px solid #e8f5e8;
+                    border-radius: 10px;
+                    padding: 1rem;
+                    margin-bottom: 1rem;
+                    background: rgba(255, 235, 59, 0.1);
+                ">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <strong>#${index + 1} - ${feedback.type}</strong>
+                        <span style="color: #666;">${feedback.timestamp.toLocaleString()}</span>
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <strong>用户：</strong>${feedback.user}
+                    </div>
+                    <div style="background: white; padding: 1rem; border-radius: 5px;">
+                        ${feedback.message}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 关闭管理面板
+        function closeAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            if (panel) {
+                panel.remove();
+            }
+        }
+
+        // 导出反馈数据
+        function exportFeedback() {
+            if (feedbackStorage.length === 0) {
+                alert('没有反馈数据可导出！');
+                return;
+            }
+            
+            const csvContent = generateCSV();
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `cattax_feedback_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('📥 反馈数据已导出为CSV文件！');
+        }
+
+        // 生成CSV格式
+        function generateCSV() {
+            const headers = ['编号', '提交时间', '用户', '反馈类型', '反馈内容'];
+            const rows = feedbackStorage.map((feedback, index) => [
+                index + 1,
+                feedback.timestamp.toLocaleString(),
+                feedback.user,
+                feedback.type,
+                `"${feedback.message.replace(/"/g, '""')}"` // 处理CSV中的引号
+            ]);
+            
+            const csvContent = [headers, ...rows]
+                .map(row => row.join(','))
+                .join('\n');
+            
+            return '\uFEFF' + csvContent; // 添加BOM以支持中文
+        }
+
+        // 清空所有反馈
+        function clearAllFeedback() {
+            if (confirm('⚠️ 确定要清空所有反馈数据吗？此操作不可恢复！')) {
+                feedbackStorage = [];
+                document.getElementById('feedbackList').innerHTML = '<p style="color: #666;">暂无反馈数据</p>';
+                alert('🗑️ 所有反馈数据已清空！');
+            }
+        }
+
+        // 🚀 初始化反馈系统
+        function initializeFeedbackSystem() {
+            console.log('🔧 正在初始化完整反馈系统...');
+            
+            // 绑定表单提交事件
+            const feedbackForm = document.getElementById('feedbackForm');
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', handleFeedbackSubmit);
+                console.log('✅ 表单提交事件已绑定');
+            }
+            
+            // 初始化字符计数器
+            updateCharacterCount();
+            
+            // 更新显示状态
+            updateFeedbackSectionVisibility();
+            
+            // 检查管理员访问（URL中包含#admin）
+            if (window.location.hash === '#admin') {
+                showAdminPanel();
+            }
+            
+            console.log('🎉 完整反馈系统初始化完成！');
+            console.log('💡 提示：访问 网站地址/#admin 可以查看管理面板');
+        }
+
+        // 📊 获取反馈统计
+        function getFeedbackStats() {
+            const stats = {
+                total: feedbackStorage.length,
+                byType: {},
+                today: 0
+            };
+            
+            const today = new Date().toDateString();
+            
+            feedbackStorage.forEach(feedback => {
+                const type = feedback.type || 'unknown';
+                stats.byType[type] = (stats.byType[type] || 0) + 1;
+                
+                if (feedback.timestamp.toDateString() === today) {
+                    stats.today++;
+                }
+            });
+            
+            return stats;
+        }
+
+        // ========== 反馈系统结束 ==========
 
         // 🎨 UI相关函数
         function setupEventListeners() {
-            // 📷 照片上传功能
-            document.getElementById('photoInput').addEventListener('change', handlePhotoUpload);
-            
-            // 🖱️ 拖拽功能
-            const uploadArea = document.querySelector('.upload-area');
-            uploadArea.addEventListener('dragover', handleDragOver);
-            uploadArea.addEventListener('dragleave', handleDragLeave);
-            uploadArea.addEventListener('drop', handleDrop);
-            
-            // 🏷️ 标签输入
-            document.getElementById('tagInput').addEventListener('keypress', handleTagInput);
-            
-            // 📝 表单提交
-            document.getElementById('postForm').addEventListener('submit', handlePostSubmit);
-            document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
-            document.getElementById('loginForm').addEventListener('submit', handleLogin);
-            
             // 🖱️ 点击外部关闭模态框
             window.onclick = handleWindowClick;
+            
+            // 绑定注册表单
+            const registrationForm = document.getElementById('registrationForm');
+            if (registrationForm) {
+                registrationForm.addEventListener('submit', handleRegistration);
+            }
+            
+            // 绑定登录表单
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', handleLogin);
+            }
         }
 
         // 🏠 导航函数
@@ -2159,7 +2022,6 @@
         function createPostElement(post) {
             const postDiv = document.createElement('div');
             postDiv.className = 'post-card';
-            postDiv.onclick = () => openPostDetail(post.id);
             
             postDiv.innerHTML = `
                 <div class="post-header">
@@ -2188,7 +2050,7 @@
                             ${post.tags.map(tag => `<span class="post-tag" onclick="event.stopPropagation(); filterByTag('${tag}')">#${tag}</span>`).join('')}
                         </div>
                         <div class="post-actions">
-                            <button class="action-btn" onclick="event.stopPropagation(); openPostDetail('${post.id}')">
+                            <button class="action-btn">
                                 💬 ${post.commentCount} Comments
                             </button>
                             <button class="action-btn" onclick="event.stopPropagation(); sharePost('${post.id}')">
@@ -2205,152 +2067,8 @@
             return postDiv;
         }
 
-        // 📄 帖子详情函数
-        async function openPostDetail(postId) {
-            currentPostId = postId;
-            const post = posts.find(p => p.id === postId);
-            if (!post) return;
-
-            const modal = document.getElementById('postDetailModal');
-            const content = document.getElementById('postDetailContent');
-            
-            content.innerHTML = `
-                <div class="post-detail-header" style="background: none; padding: 0; margin-bottom: 1.5rem;">
-                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                        <img src="${post.author.avatar}" alt="${post.author.name}" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid #ffeb3b;">
-                        <div>
-                            <div style="font-weight: bold; color: #2e7d32;">${post.author.name}</div>
-                            <div style="color: #81c784; font-size: 0.9rem;">${formatTimeAgo(post.timestamp)}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                ${post.image ? `<img src="${post.image}" alt="Cat photo" class="post-detail-image">` : ''}
-                
-                <h2 class="post-detail-title">${post.title}</h2>
-                <p class="post-detail-description">${post.description}</p>
-                
-                <div class="post-tags">
-                    ${post.tags.map(tag => `<span class="post-tag">#${tag}</span>`).join('')}
-                </div>
-                
-                <div class="post-detail-votes">
-                    <button class="detail-vote-btn ${post.userVote === 1 ? 'upvoted' : ''}" onclick="votePost('${post.id}', 1)">
-                        ▲ Upvote
-                    </button>
-                    <span class="detail-vote-score">${post.votes} votes</span>
-                    <button class="detail-vote-btn downvote ${post.userVote === -1 ? 'downvoted' : ''}" onclick="votePost('${post.id}', -1)">
-                        ▼ Downvote
-                    </button>
-                </div>
-            `;
-            
-            // 🔥 从Firebase加载评论
-            await loadCommentsForPost(postId);
-            
-            if (isLoggedIn) {
-                document.getElementById('commentForm').style.display = 'block';
-                document.getElementById('commentLoginPrompt').style.display = 'none';
-            } else {
-                document.getElementById('commentForm').style.display = 'none';
-                document.getElementById('commentLoginPrompt').style.display = 'block';
-            }
-            
-            modal.style.display = 'block';
-        }
-
-        function closePostDetail() {
-            document.getElementById('postDetailModal').style.display = 'none';
-            currentPostId = null;
-        }
-
-        // 🔥 加载指定帖子的评论
-        async function loadCommentsForPost(postId) {
-            const postComments = await loadCommentsFromFirebase(postId);
-            const post = posts.find(p => p.id === postId);
-            
-            if (post) {
-                post.commentCount = postComments.length;
-                document.getElementById('commentCount').textContent = postComments.length;
-            }
-            
-            displayComments(postComments);
-        }
-
-        function displayComments(postComments) {
-            const commentsList = document.getElementById('commentsList');
-            
-            if (postComments.length === 0) {
-                commentsList.innerHTML = `
-                    <div class="empty-state" style="padding: 2rem;">
-                        <div class="empty-emoji">💬</div>
-                        <div class="empty-title">No comments yet</div>
-                        <div class="empty-description">Be the first to share your thoughts!</div>
-                    </div>
-                `;
-                return;
-            }
-            
-            commentsList.innerHTML = '';
-            postComments.forEach(comment => {
-                const commentElement = document.createElement('div');
-                commentElement.className = 'comment';
-                commentElement.innerHTML = `
-                    <div class="comment-header">
-                        <span class="comment-author">${comment.author}</span>
-                        <span class="comment-time">${formatTimeAgo(comment.timestamp)}</span>
-                    </div>
-                    <div class="comment-content">${comment.content}</div>
-                `;
-                commentsList.appendChild(commentElement);
-            });
-        }
-
-        // 🔥 提交评论
-        async function submitComment() {
-            if (!isLoggedIn) {
-                alert('Please login to comment!');
-                return;
-            }
-            
-            const textarea = document.querySelector('.comment-textarea');
-            const content = textarea.value.trim();
-            
-            if (!content) {
-                alert('Please enter a comment!');
-                return;
-            }
-            
-            if (!currentPostId) return;
-            
-            try {
-                const newComment = {
-                    author: currentUser?.name || 'Anonymous',
-                    content: content
-                };
-                
-                // 🔥 保存评论到Firebase
-                await saveCommentToFirebase(currentPostId, newComment);
-                
-                // 🔄 重新加载评论
-                await loadCommentsForPost(currentPostId);
-                
-                // 🧹 清空表单
-                textarea.value = '';
-                
-                // 🔄 更新主页面的帖子显示
-                renderPosts();
-                
-                alert('Comment added successfully! 💬');
-                
-            } catch (error) {
-                console.error('❌ 提交评论失败:', error);
-                alert('Failed to add comment. Please try again.');
-            }
-        }
-
         // 🗳️ 投票函数
-        async function votePost(postId, voteType) {
+        function votePost(postId, voteType) {
             if (!isLoggedIn) {
                 alert('Please login to vote! 🔐');
                 return;
@@ -2374,67 +2092,8 @@
                 if (voteType === -1) post.votes--;
             }
             
-            // 🔥 更新Firebase
-            await updatePostVoteInFirebase(postId, post.votes, post.userVote);
-            
             // 🔄 重新渲染
             renderPosts();
-            if (currentPostId === postId) {
-                openPostDetail(postId);
-            }
-        }
-
-        // 📝 帖子创建函数
-        async function handlePostSubmit(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(e.target);
-            const postData = {
-                title: formData.get('title'),
-                description: formData.get('description'),
-                tags: selectedTags,
-                photo: formData.get('photo')
-            };
-
-            if (!postData.photo || postData.photo.size === 0) {
-                alert('Please upload a photo of your cat! 📸');
-                return;
-            }
-
-            try {
-                // 📸 处理图片（简化版本 - 实际项目中需要上传到云存储）
-                const imageUrl = URL.createObjectURL(postData.photo);
-                
-                const newPost = {
-                    title: postData.title,
-                    description: postData.description,
-                    image: imageUrl, // 注意：这只是临时URL，实际项目需要上传到云存储
-                    author: {
-                        name: currentUser?.name || 'Anonymous',
-                        avatar: currentUser?.avatar || 'https://via.placeholder.com/40x40/4caf50/ffffff?text=U'
-                    },
-                    votes: 1,
-                    userVote: 1,
-                    commentCount: 0,
-                    tags: postData.tags
-                };
-
-                // 🔥 保存到Firebase
-                const postId = await savePostToFirebase(newPost);
-                
-                // 📱 添加到本地数组（包含Firebase ID）
-                newPost.id = postId;
-                newPost.timestamp = new Date();
-                posts.unshift(newPost);
-                
-                alert(`Cat tax shared successfully! 🎉\n\nTitle: ${postData.title}`);
-                closePostModal();
-                showPostsList();
-                
-            } catch (error) {
-                console.error('❌ 发布帖子失败:', error);
-                alert('Failed to share your cat tax. Please try again.');
-            }
         }
 
         // 👤 用户注册函数
@@ -2448,7 +2107,6 @@
                 password: formData.get('password')
             };
 
-            // 🔐 简化的注册逻辑（实际项目需要Firebase Auth）
             currentUser = {
                 name: userData.name,
                 email: userData.email,
@@ -2460,6 +2118,9 @@
             toggleUserState();
             closeRegisterModal();
             showPostsList();
+            
+            // 更新反馈区域显示
+            updateFeedbackSectionVisibility();
             
             alert(`Welcome to CatTax, ${userData.name}! 🎉`);
         }
@@ -2474,7 +2135,6 @@
                 password: formData.get('loginPassword')
             };
 
-            // 🔐 简化的登录逻辑（实际项目需要Firebase Auth）
             currentUser = {
                 name: 'Demo User',
                 email: loginData.email,
@@ -2487,7 +2147,39 @@
             closeLoginModal();
             showPostsList();
             
+            // 更新反馈区域显示
+            updateFeedbackSectionVisibility();
+            
             alert(`Welcome back! 🎉`);
+        }
+
+        // 🔄 切换用户状态显示
+        function toggleUserState() {
+            const authButtons = document.querySelector('.auth-buttons');
+            const userAvatar = document.getElementById('userAvatar');
+            
+            if (isLoggedIn) {
+                authButtons.style.display = 'none';
+                userAvatar.style.display = 'block';
+                userAvatar.src = currentUser.avatar;
+            } else {
+                authButtons.style.display = 'flex';
+                userAvatar.style.display = 'none';
+            }
+        }
+
+        // 🚪 用户登出
+        function handleLogout() {
+            isLoggedIn = false;
+            currentUser = null;
+            toggleUserState();
+            updateFeedbackSectionVisibility();
+            showWelcomeMessage();
+            
+            // 关闭下拉菜单
+            document.getElementById('userDropdown').classList.remove('show');
+            
+            alert('You have been logged out! 👋');
         }
 
         // 🔄 工具函数
@@ -2571,122 +2263,20 @@
             alert('Post saved to your collection! 🔖');
         }
 
-        // 🚀 帖子创建相关函数
+        // 🚀 其他函数
         function handleGetStarted() {
-            if (isLoggedIn) {
-                showPostsList();
-                openPostModal();
-            } else {
-                openLoginModal();
-            }
+            openRegisterModal();
         }
 
         function handleCreatePost() {
-            if (isLoggedIn) {
-                openPostModal();
-            } else {
+            if (!isLoggedIn) {
                 alert('Please login to create a post! 🔐');
-                openLoginModal();
+                return;
             }
+            alert('Create post feature coming soon! 📸');
         }
 
-        function openPostModal() {
-            document.getElementById('postModal').style.display = 'block';
-        }
-
-        function closePostModal() {
-            document.getElementById('postModal').style.display = 'none';
-            document.getElementById('postForm').reset();
-            document.getElementById('imagePreview').style.display = 'none';
-            selectedTags = [];
-            renderTags();
-        }
-
-        // 📷 照片上传处理
-        function handlePhotoUpload(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('imagePreview');
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function handleDragOver(e) {
-            e.preventDefault();
-            e.currentTarget.classList.add('dragover');
-        }
-
-        function handleDragLeave(e) {
-            e.preventDefault();
-            e.currentTarget.classList.remove('dragover');
-        }
-
-        function handleDrop(e) {
-            e.preventDefault();
-            e.currentTarget.classList.remove('dragover');
-            const files = e.dataTransfer.files;
-            if (files.length > 0 && files[0].type.startsWith('image/')) {
-                document.getElementById('photoInput').files = files;
-                document.getElementById('photoInput').dispatchEvent(new Event('change'));
-            }
-        }
-
-        // 🏷️ 标签功能
-        function renderTags() {
-            const container = document.getElementById('tagsContainer');
-            const tagInput = document.getElementById('tagInput');
-            
-            container.innerHTML = '';
-            
-            selectedTags.forEach((tag, index) => {
-                const tagElement = document.createElement('span');
-                tagElement.className = 'tag';
-                tagElement.innerHTML = `${tag} <span class="tag-remove" onclick="removeTag(${index})">×</span>`;
-                container.appendChild(tagElement);
-            });
-            
-            container.appendChild(tagInput);
-        }
-
-        function addTag(tagText) {
-            const tag = tagText.trim().toLowerCase();
-            if (tag && !selectedTags.includes(tag) && selectedTags.length < 10) {
-                selectedTags.push(tag);
-                renderTags();
-                document.getElementById('tagInput').value = '';
-            }
-        }
-
-        function removeTag(index) {
-            selectedTags.splice(index, 1);
-            renderTags();
-        }
-
-        function addSuggestedTag(tag) {
-            addTag(tag);
-        }
-
-        function handleTagInput(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                addTag(e.target.value);
-            }
-        }
-
-        // 📱 模态框函数
-        function openLoginModal() {
-            document.getElementById('loginModal').style.display = 'block';
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').style.display = 'none';
-        }
-
+        // 模态框相关函数
         function openRegisterModal() {
             document.getElementById('registerModal').style.display = 'block';
         }
@@ -2695,99 +2285,43 @@
             document.getElementById('registerModal').style.display = 'none';
         }
 
-        function handleWindowClick(event) {
-            const modals = [
-                'loginModal', 'registerModal', 'postModal', 'postDetailModal'
-            ];
-            
-            modals.forEach(modalId => {
-                const modal = document.getElementById(modalId);
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-            
-            // 关闭用户下拉菜单
-            const userDropdown = document.getElementById('userDropdown');
-            if (!event.target.matches('.user-avatar') && !userDropdown.contains(event.target)) {
-                userDropdown.classList.remove('show');
-            }
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
         }
 
-        // 👤 用户相关函数
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
         function toggleUserDropdown() {
             document.getElementById('userDropdown').classList.toggle('show');
         }
 
-        function toggleUserState() {
-            const authButtons = document.querySelector('.auth-buttons');
-            const userAvatar = document.getElementById('userAvatar');
-            const feedbackPrompt = document.getElementById('feedbackLoginPrompt');
-            const feedbackForm = document.getElementById('feedbackForm');
+        function handleWindowClick(event) {
+            // 关闭模态框
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
             
-            if (isLoggedIn) {
-                authButtons.style.display = 'none';
-                userAvatar.style.display = 'block';
-                feedbackPrompt.style.display = 'none';
-                feedbackForm.style.display = 'block';
-                if (currentUser?.avatar) {
-                    userAvatar.src = currentUser.avatar;
+            // 关闭用户下拉菜单
+            if (!event.target.matches('#userAvatar')) {
+                const dropdown = document.getElementById('userDropdown');
+                if (dropdown && dropdown.classList.contains('show')) {
+                    dropdown.classList.remove('show');
                 }
-            } else {
-                authButtons.style.display = 'flex';
-                userAvatar.style.display = 'none';
-                feedbackPrompt.style.display = 'block';
-                feedbackForm.style.display = 'none';
             }
         }
 
         function openUserCenter() {
-            alert('User Center would open here! 👤\n(This is a placeholder for the user center functionality)');
+            alert('User Center coming soon! 👤');
+            document.getElementById('userDropdown').classList.remove('show');
         }
 
-        function handleLogout() {
-            isLoggedIn = false;
-            currentUser = null;
-            toggleUserState();
-            showWelcomeMessage();
-            alert('You have been logged out successfully! 👋');
+        function openPostModal() {
+            handleCreatePost();
+            document.getElementById('userDropdown').classList.remove('show');
         }
-
-        // 🔍 搜索功能
-        document.querySelector('.search-box').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const searchTerm = e.target.value.trim();
-                if (searchTerm) {
-                    alert(`Searching for: ${searchTerm} 🔍\n(Search functionality would be implemented here)`);
-                }
-            }
-        });
-
-        // 🎯 将函数暴露到全局作用域，以便HTML onclick事件可以使用
-        window.showHomePage = showHomePage;
-        window.openLoginModal = openLoginModal;
-        window.openRegisterModal = openRegisterModal;
-        window.closeLoginModal = closeLoginModal;
-        window.closeRegisterModal = closeRegisterModal;
-        window.handleGetStarted = handleGetStarted;
-        window.handleCreatePost = handleCreatePost;
-        window.openPostModal = openPostModal;
-        window.closePostModal = closePostModal;
-        window.sortPosts = sortPosts;
-        window.votePost = votePost;
-        window.openPostDetail = openPostDetail;
-        window.closePostDetail = closePostDetail;
-        window.submitComment = submitComment;
-        window.filterByTag = filterByTag;
-        window.sharePost = sharePost;
-        window.savePost = savePost;
-        window.toggleUserDropdown = toggleUserDropdown;
-        window.openUserCenter = openUserCenter;
-        window.handleLogout = handleLogout;
-        window.addSuggestedTag = addSuggestedTag;
-        window.removeTag = removeTag;
-
-        console.log('🎉 所有功能初始化完成！');
     </script>
 </body>
 </html>
+            
