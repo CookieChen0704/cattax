@@ -1559,20 +1559,20 @@
             let errors = [];
             
             if (!formData.type || formData.type === '') {
-                errors.push('请选择反馈类型');
+                errors.push('Please select feedback type');
             }
             
             if (!formData.message || formData.message.trim() === '') {
-                errors.push('请填写反馈内容');
+                errors.push('Please enter your feedback message');
             } else {
                 const messageLength = formData.message.trim().length;
                 
                 if (messageLength < 10) {
-                    errors.push('反馈内容至少需要10个字符');
+                    errors.push('Feedback message must be at least 10 characters');
                 }
                 
                 if (messageLength > 1000) {
-                    errors.push('反馈内容不能超过1000个字符');
+                    errors.push('Feedback message cannot exceed 1000 characters');
                 }
             }
             
@@ -1635,11 +1635,11 @@
             
             if (isLoading) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '⏳ 发送中...';
+                submitBtn.innerHTML = '⏳ Sending...';
                 submitBtn.style.opacity = '0.7';
             } else {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '🚀 发送反馈';
+                submitBtn.innerHTML = '🚀 Send Feedback';
                 submitBtn.style.opacity = '1';
             }
         }
@@ -1677,7 +1677,7 @@
                 await sendFeedbackEmail(feedbackData);
                 
                 // 3. 全部成功后的处理
-                showFeedbackResult(true, '感谢您的反馈！我们已经收到并发送邮件通知了！📧');
+                showFeedbackResult(true, 'Thank you for your feedback! We have received it and sent an email notification!📧');
                 event.target.reset(); // 清空表单
                 
                 console.log('✅ 反馈提交完全成功（本地保存 + 邮件发送）');
@@ -1742,9 +1742,9 @@
         // 👑 管理员功能 - 查看所有反馈
         function showAdminPanel() {
             // 检查是否为管理员访问
-            const password = prompt('🔐 请输入管理员密码：');
+            const password = prompt('🔐 Please enter admin password：');
             if (password !== 'cattax2024') { // 你可以修改这个密码
-                alert('❌ 密码错误！');
+                alert('❌ Incorrect password');
                 return;
             }
             
@@ -1773,7 +1773,7 @@
                     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
                 ">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                        <h2 style="color: #2e7d32; margin: 0;">📊 反馈管理中心</h2>
+                        <h2 style="color: #2e7d32; margin: 0;">📊 Feedback Management Center</h2>
                         <button onclick="closeAdminPanel()" style="
                             background: #f44336;
                             color: white;
@@ -1785,7 +1785,7 @@
                     </div>
                     
                     <div style="margin-bottom: 2rem;">
-                        <h3>📈 统计信息</h3>
+                        <h3>📈 Statistics</h3>
                         <p>总反馈数：<strong>${feedbackStorage.length}</strong></p>
                         <button onclick="exportFeedback()" style="
                             background: #4caf50;
